@@ -1,6 +1,13 @@
 {
     "files": [
         "mainwindow.py",
-        "form.ui"
+        "form.ui",
+        "ui_form.py",
+        "font/logo.png",
+        "font/进入.png",
+        "font/搜索.png",
+        "font/退出.png",
+        "font/down-arrow.png",
+        "font/左箭头.png"
     ]
 }
