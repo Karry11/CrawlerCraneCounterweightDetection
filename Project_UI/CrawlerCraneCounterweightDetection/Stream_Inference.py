@@ -20,7 +20,6 @@ class Stream_Inference(QThread):
     def run(self):
         cap = cv2.VideoCapture(self.stream_path)
         fps = cap.get(cv2.CAP_PROP_FPS)
-        print(fps)
         delta_time=1000/fps
         while cap.isOpened():
             start_time = time.time()

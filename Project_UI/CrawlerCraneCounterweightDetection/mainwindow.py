@@ -1,10 +1,9 @@
 # This Python file uses the following encoding: utf-8
 # Important:
 # You need to run the following command to generate the ui_form.py file
-#     pyside6-uic form.ui -o ui_form.py, or
-#     pyside2-uic form.ui -o ui_form.py
+#     pyside6-uic form.ui -o ui_form.py
 import sys
-from PySide6.QtWidgets import QApplication, QWidget,QFileDialog
+from PySide6.QtWidgets import QApplication, QWidget,QFileDialog,QButtonGroup
 from PySide6.QtCore import QDir,Qt
 from PySide6.QtGui import QPixmap
 from ui_form import Ui_MainWindow
@@ -19,13 +18,26 @@ class MainWindow(QWidget):
         self.ui.stream_import.clicked.connect(self.stream_import)
         self.ui.stream_reload.clicked.connect(self.stream_reload)
         self.stream_path=""
-        self.ui.open_file.clicked.connect(self.open_file)
+        self.ui.open_stream_file.clicked.connect(lambda:self.open_file(0))
+        self.ui.open_weight_file.clicked.connect(lambda:self.open_file(1))
+        self.deviceButtonGroup = QButtonGroup()
+        self.deviceButtonGroup.addButton(self.ui.GPU)
+        self.deviceButtonGroup.addButton(self.ui.CPU)
+        self.deviceButtonGroup.buttonClicked.connect(self.device_select)
+        self.ui.conf_value.setText("0.50")
+
         self.stream_inference_thread=""
         self.imgsz=640
         self.conf=0.5
         self.device="cuda:0"
         self.half=False
         self.weight_path="D:\Download\yolov8s-seg.pt"
+        self.ui.conf.valueChanged.connect(self.sliderChanged)
+
+
+    def sliderChanged(self, value):
+        formatted_str = "{:.2f}".format(value/100)
+        self.ui.conf_value.setText(formatted_str)
 
     def is_unique(self,current_item, combo_box):
         for index in range(combo_box.count()):
@@ -33,24 +45,39 @@ class MainWindow(QWidget):
                 return False
         return True
 
-    def open_file(self):
+    def open_file(self,type):
         file_dialog = QFileDialog(self)
         file_dialog.setWindowTitle("Open File")
         file_dialog.setFileMode(QFileDialog.ExistingFile)
         file_dialog.setViewMode(QFileDialog.Detail)
-        file_dialog.setNameFilter("Video Files (*.mp4 *.avi *.mov)")
-        if file_dialog.exec():
-            selected_files = file_dialog.selectedFiles()
-            if len(selected_files) == 1:
-                if self.is_unique(selected_files[0], self.ui.file_list):
-                    self.ui.file_list.addItem(selected_files[0])
-                self.ui.file_list.setCurrentText(selected_files[0])
-            else:
-                return
+        if type==0:
+            file_dialog.setNameFilter("Video Files (*.mp4 *.avi *.mov)")
+            if file_dialog.exec():
+                selected_files = file_dialog.selectedFiles()
+                if len(selected_files) == 1:
+                    if self.is_unique(selected_files[0], self.ui.stream_file_list):
+                        self.ui.stream_file_list.addItem(selected_files[0])
+                    self.ui.stream_file_list.setCurrentText(selected_files[0])
+                else:
+                    return
+        elif type ==1:
+            file_dialog.setNameFilter("Weight Files (*.pt)")
+            if file_dialog.exec():
+                selected_files = file_dialog.selectedFiles()
+                if len(selected_files) == 1:
+                    if self.is_unique(selected_files[0], self.ui.weight_file_list):
+                        self.ui.weight_file_list.addItem(selected_files[0])
+                    self.ui.weight_file_list.setCurrentText(selected_files[0])
+                else:
+                    return
 
     def stream_import(self):
-        self.stream_path = str(self.ui.file_list.currentText())
+        self.stream_path = str(self.ui.stream_file_list.currentText())
         self.stream_path = int(self.stream_path) if str.isdigit(self.stream_path) else self.stream_path
+        self.weight_path = str(self.ui.weight_file_list.currentText())
+        self.imgsz = int(self.ui.imgsz.text())
+        self.device = "cuda:0" if self.ui.GPU.checked() else "CPU"
+        self.conf = self.ui.conf.value*0.01
         self.stream_inference_thread = Stream_Inference(self.stream_path,self.weight_path,self.imgsz,self.conf,self.device,self.half)
         self.stream_inference_thread.processed_image.connect(self.display_processed_image)
         self.stream_inference_thread.start()
@@ -64,7 +91,14 @@ class MainWindow(QWidget):
         pixmap = pixmap.scaled(self.ui.annotated_image.size())
         self.ui.annotated_image.setPixmap(pixmap)
 
-
+    def device_select(self,button):
+        buttons = self.deviceButtonGroup.buttons()
+        for item in buttons:
+            if item==button:
+                item.setChecked(True)
+            else:
+                item.setChecked(False)
+                
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     widget = MainWindow()
