@@ -212,13 +212,13 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addItem(self.horizontalSpacer_2, 1, 0, 1, 1)
 
-        self.label_2 = QLabel(self.verticalLayoutWidget_3)
-        self.label_2.setObjectName(u"label_2")
-        sizePolicy2.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
-        self.label_2.setSizePolicy(sizePolicy2)
-        self.label_2.setMinimumSize(QSize(960, 540))
+        self.annotated_image = QLabel(self.verticalLayoutWidget_3)
+        self.annotated_image.setObjectName(u"annotated_image")
+        sizePolicy2.setHeightForWidth(self.annotated_image.sizePolicy().hasHeightForWidth())
+        self.annotated_image.setSizePolicy(sizePolicy2)
+        self.annotated_image.setMinimumSize(QSize(960, 540))
 
-        self.gridLayout.addWidget(self.label_2, 1, 1, 1, 1)
+        self.gridLayout.addWidget(self.annotated_image, 1, 1, 1, 1)
 
         self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
@@ -283,7 +283,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -299,7 +299,7 @@ class Ui_MainWindow(object):
 
         self.stream_import.setText("")
         self.groupBox_3.setTitle(QCoreApplication.translate("MainWindow", u"\u7ed3\u679c\u9884\u89c8", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
+        self.annotated_image.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.stream_reload.setText("")
         self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"\u7ed3\u679c\u663e\u793a", None))
     # retranslateUi
