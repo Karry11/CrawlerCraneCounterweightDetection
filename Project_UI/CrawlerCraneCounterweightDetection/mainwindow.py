@@ -76,14 +76,15 @@ class MainWindow(QWidget):
         self.stream_path = int(self.stream_path) if str.isdigit(self.stream_path) else self.stream_path
         self.weight_path = str(self.ui.weight_file_list.currentText())
         self.imgsz = int(self.ui.imgsz.text())
-        self.device = "cuda:0" if self.ui.GPU.checked() else "CPU"
-        self.conf = self.ui.conf.value*0.01
+        self.device = "cuda:0" if self.ui.GPU.isChecked() else "CPU"
+        self.conf = self.ui.conf.value()*0.01
         self.stream_inference_thread = Stream_Inference(self.stream_path,self.weight_path,self.imgsz,self.conf,self.device,self.half)
         self.stream_inference_thread.processed_image.connect(self.display_processed_image)
         self.stream_inference_thread.start()
         self.ui.stackedWidget.setCurrentIndex(1)
 
     def stream_reload(self):
+        self.stream_inference_thread.stop()
         self.ui.stackedWidget.setCurrentIndex(0)
 
     def display_processed_image(self, image):

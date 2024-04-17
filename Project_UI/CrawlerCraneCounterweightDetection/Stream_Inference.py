@@ -16,12 +16,16 @@ class Stream_Inference(QThread):
         self.device=device
         self.half=half
         self.model = YOLO(self.weight_path)
+        self.thread_stop = False
+
+    def stop(self):
+        self.thread_stop = True
 
     def run(self):
         cap = cv2.VideoCapture(self.stream_path)
         fps = cap.get(cv2.CAP_PROP_FPS)
         delta_time=1000/fps
-        while cap.isOpened():
+        while cap.isOpened() and not self.thread_stop:
             start_time = time.time()
             ret, frame = cap.read()
             if ret:
