@@ -9,3 +9,7 @@ Project_UI/CrawlerCraneCounterweightDetection/CrawlerCraneCounterweightDetection
 /yolov8n.pt
 train.py
 predict.py
+/demo_data
+Project_UI/CrawlerCraneCounterweightDetection/CrawlerCraneCounterweightDetection.pyproject.user
+*.user
+*.user
