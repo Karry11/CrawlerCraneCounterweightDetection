@@ -31,7 +31,8 @@ class MainWindow(QWidget):
         self.conf=0.5
         self.device="cuda:0"
         self.half=False
-        self.weight_path="D:\Download\yolov8s-seg.pt"
+        self.weight_path="../../utils/best.pt"
+        self.weight_sr = "../../utils/ESPCN_x2.pb"
         self.ui.conf.valueChanged.connect(self.sliderChanged)
 
 
@@ -74,11 +75,11 @@ class MainWindow(QWidget):
     def stream_import(self):
         self.stream_path = str(self.ui.stream_file_list.currentText())
         self.stream_path = int(self.stream_path) if str.isdigit(self.stream_path) else self.stream_path
-        self.weight_path = str(self.ui.weight_file_list.currentText())
+        # self.weight_path = str(self.ui.weight_file_list.currentText())
         self.imgsz = int(self.ui.imgsz.text())
         self.device = "cuda:0" if self.ui.GPU.isChecked() else "CPU"
         self.conf = self.ui.conf.value()*0.01
-        self.stream_inference_thread = Stream_Inference(self.stream_path,self.weight_path,self.imgsz,self.conf,self.device,self.half)
+        self.stream_inference_thread = Stream_Inference(self.stream_path,self.weight_path,self.imgsz,self.conf,self.device,self.half,self.weight_sr)
         self.stream_inference_thread.processed_image.connect(self.display_processed_image)
         self.stream_inference_thread.start()
         self.ui.stackedWidget.setCurrentIndex(1)

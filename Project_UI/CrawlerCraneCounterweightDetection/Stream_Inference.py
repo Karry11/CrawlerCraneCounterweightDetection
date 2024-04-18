@@ -5,9 +5,10 @@ from PySide6.QtCore import Qt, QThread, Signal
 import cv2
 import time
 from ultralytics import YOLO
+import numpy as np
 class Stream_Inference(QThread):
     processed_image = Signal(QImage)
-    def __init__(self,stream_path,weight_path,imgsz,conf,device,half):
+    def __init__(self,stream_path,weight_path,imgsz,conf,device,half,weight_sr):
         super().__init__()
         self.stream_path = stream_path
         self.weight_path = weight_path
@@ -17,9 +18,36 @@ class Stream_Inference(QThread):
         self.half=half
         self.model = YOLO(self.weight_path)
         self.thread_stop = False
+        self.sr_model_flag = False
+        self.sr_model = cv2.dnn_superres.DnnSuperResImpl_create()
+        self.sr_model.readModel(weight_sr)
+        self.sr_model.setModel("espcn", 2)
 
     def stop(self):
         self.thread_stop = True
+    def sr_model_state(self):
+        self.sr_model_flag=True
+
+    def _get_image_slice(predict_result, sr_model=None, super_resolution=True):
+        try:
+            original_image = predict_result[0].orig_img
+        except:
+            return []
+        boxes = predict_result[0].boxes.cpu().numpy().data
+        # 置信度
+        conf_list = boxes[:, 4]
+
+        # 对检测框参数进行向下取整
+        int_boxes = np.floor(boxes).astype(int)
+        img_list = []
+        for i in range(int_boxes.shape[0]):
+            x1, y1, x2, y2 = int_boxes[i][0], int_boxes[i][1], int_boxes[i][2], int_boxes[i][3]
+            img_i = original_image[y1:y2 + 1, x1:x2 + 1]
+            # 如果需要进行超分辨里增强的话，则调用sr_model完成上采样操作（默认放大因子为2）
+            if super_resolution:
+                img_i = sr_model.upsample(img_i)
+            img_list.append((img_i, conf_list[i]))
+        return img_list
 
     def run(self):
         cap = cv2.VideoCapture(self.stream_path)
@@ -30,6 +58,8 @@ class Stream_Inference(QThread):
             ret, frame = cap.read()
             if ret:
                 result = self.model(frame,imgsz=self.imgsz,conf=self.conf,half=self.half ,device=self.device)
+                # 通过预测狂和原始图像数据得到切片图像，通过对切片图像完成超分辨率增强后输出结果 [(图像切片1，置信度1),(图像切片2， 置信度2).....]
+                slice_result = self._get_image_slice(result, self.sr_model)
                 annotated_image = result[0].plot(conf=True,line_width=None,font_size=None,font="Arial.ttf",pil=False,img=None,im_gpu=None,kpt_radius=5,
                             kpt_line=True,labels=True,boxes=True,masks=True,probs=True,show=False,save=False,filename=None,)
                 rgb_image = cv2.cvtColor(annotated_image, cv2.COLOR_BGR2RGB)
