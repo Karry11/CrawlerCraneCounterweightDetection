@@ -8,10 +8,11 @@ from ultralytics import YOLO
 import numpy as np
 class Stream_Inference(QThread):
     processed_image = Signal(QImage)
-    def __init__(self,stream_path,weight_path,imgsz,conf,device,half,weight_sr):
+    def __init__(self,stream_path,weight_path,imgsz,conf,device,half,weight_sr,weight_character):
         super().__init__()
         self.stream_path = stream_path
         self.weight_path = weight_path
+        self.weight_character = weight_character
         self.imgsz = imgsz
         self.conf=conf
         self.device=device
@@ -22,6 +23,7 @@ class Stream_Inference(QThread):
         self.sr_model = cv2.dnn_superres.DnnSuperResImpl_create()
         self.sr_model.readModel(weight_sr)
         self.sr_model.setModel("espcn", 2)
+        self.model_character = YOLO(self.weight_character)
 
     def stop(self):
         self.thread_stop = True

@@ -33,6 +33,7 @@ class MainWindow(QWidget):
         self.half=False
         self.weight_path="../../utils/best.pt"
         self.weight_sr = "../../utils/ESPCN_x2.pb"
+        self.weight_character = "../../CounterweightCharacterRecognition/detect/train/weights/best.pt"
         self.ui.conf.valueChanged.connect(self.sliderChanged)
 
 
@@ -79,7 +80,7 @@ class MainWindow(QWidget):
         self.imgsz = int(self.ui.imgsz.text())
         self.device = "cuda:0" if self.ui.GPU.isChecked() else "CPU"
         self.conf = self.ui.conf.value()*0.01
-        self.stream_inference_thread = Stream_Inference(self.stream_path,self.weight_path,self.imgsz,self.conf,self.device,self.half,self.weight_sr)
+        self.stream_inference_thread = Stream_Inference(self.stream_path,self.weight_path,self.imgsz,self.conf,self.device,self.half,self.weight_sr, self.weight_character)
         self.stream_inference_thread.processed_image.connect(self.display_processed_image)
         self.stream_inference_thread.start()
         self.ui.stackedWidget.setCurrentIndex(1)
