@@ -25,7 +25,9 @@ class MainWindow(QWidget):
         self.deviceButtonGroup.addButton(self.ui.CPU)
         self.deviceButtonGroup.buttonClicked.connect(self.device_select)
         self.ui.conf_value.setText("0.50")
-
+        self.ui.mask.clicked.connect(self.show_mask)
+        self.ui.box.clicked.connect(self.show_box)
+        self.ui.Label.clicked.connect(self.show_label)
         self.stream_inference_thread=""
         self.imgsz=640
         self.conf=0.5
@@ -36,6 +38,14 @@ class MainWindow(QWidget):
         self.weight_character = "../../CounterweightCharacterRecognition/detect/train/weights/best.pt"
         self.ui.conf.valueChanged.connect(self.sliderChanged)
 
+    def show_mask(self):
+        self.stream_inference_thread.mask = (lambda x: True if x.isChecked() else False)(self.ui.mask)
+
+    def show_box(self):
+        self.stream_inference_thread.box = (lambda x: True if x.isChecked() else False)(self.ui.box)
+
+    def show_label(self):
+        self.stream_inference_thread.label = (lambda x: True if x.isChecked() else False)(self.ui.Label)
 
     def sliderChanged(self, value):
         formatted_str = "{:.2f}".format(value/100)
@@ -76,7 +86,7 @@ class MainWindow(QWidget):
     def stream_import(self):
         self.stream_path = str(self.ui.stream_file_list.currentText())
         self.stream_path = int(self.stream_path) if str.isdigit(self.stream_path) else self.stream_path
-        # self.weight_path = str(self.ui.weight_file_list.currentText())
+        self.weight_path = str(self.ui.weight_file_list.currentText())
         self.imgsz = int(self.ui.imgsz.text())
         self.device = "cuda:0" if self.ui.GPU.isChecked() else "CPU"
         self.conf = self.ui.conf.value()*0.01

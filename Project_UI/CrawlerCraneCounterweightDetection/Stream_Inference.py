@@ -6,6 +6,7 @@ import cv2
 import time
 from ultralytics import YOLO
 import numpy as np
+from collections import deque, Counter
 class Stream_Inference(QThread):
     processed_image = Signal(QImage)
     result_info = Signal(int,float,float,float,str)
@@ -21,6 +22,9 @@ class Stream_Inference(QThread):
         self.half=half
         self.model = YOLO(self.weight_path)
         self.thread_stop = False
+        self.mask=True
+        self.label=True
+        self.box = True
 
         #切片字符检测
         self.sr_model_flag = False
@@ -31,6 +35,7 @@ class Stream_Inference(QThread):
 
         #结果信息
         self.num_weight=5
+        self.num_weight_queue = deque(maxlen=5)
         self.total_mass=10.00
         self.total_mass_L=5.00
         self.total_mass_R=5.00
@@ -72,14 +77,18 @@ class Stream_Inference(QThread):
                 result = self.model(frame,imgsz=self.imgsz,conf=self.conf,half=self.half ,device=self.device)
                 # 通过预测狂和原始图像数据得到切片图像，通过对切片图像完成超分辨率增强后输出结果 [(图像切片1，置信度1),(图像切片2， 置信度2).....]
                 slice_result = self._get_image_slice(result, self.sr_model)
-                annotated_image = result[0].plot(conf=True,line_width=None,font_size=None,font="Arial.ttf",pil=False,img=None,im_gpu=None,kpt_radius=5,
-                            kpt_line=True,labels=True,boxes=True,masks=True,probs=True,show=False,save=False,filename=None,)
+                annotated_image = result[0].plot(conf=True,line_width=2,font_size=None,font="Arial.ttf",pil=False,img=None,im_gpu=None,kpt_radius=5,
+                            kpt_line=True,labels=self.label,boxes=self.box,masks=self.mask,probs=True,show=False,save=False,filename=None,)
                 rgb_image = cv2.cvtColor(annotated_image, cv2.COLOR_BGR2RGB)
                 h, w, ch = rgb_image.shape
                 bytes_per_line = ch * w
                 qimage = QImage(rgb_image.data, w, h, bytes_per_line, QImage.Format_RGB888)
-                self.num_weight = len(result[0].boxes)
-
+                # 将检测结果添加到队列中
+                self.num_weight_queue.append(len(result[0].boxes))
+                # 获取队列中元素的统计信息
+                counter = Counter(self.num_weight_queue)
+                # 获取出现次数最多的元素（众数）
+                self.num_weight = counter.most_common(1)[0][0]
                 self.processed_image.emit(qimage)
                 self.result_info.emit(self.num_weight,self.total_mass,self.total_mass_L,self.total_mass_R,self.warming_info)
             else:

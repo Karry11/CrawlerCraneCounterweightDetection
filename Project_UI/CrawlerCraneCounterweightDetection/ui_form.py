@@ -280,6 +280,7 @@ class Ui_MainWindow(object):
         self.open_weight_file.setIconSize(QSize(60, 60))
         self.weight_file_list = QComboBox(self.groupBox_4)
         self.weight_file_list.addItem("")
+        self.weight_file_list.addItem("")
         self.weight_file_list.setObjectName(u"weight_file_list")
         self.weight_file_list.setGeometry(QRect(140, 40, 651, 40))
         self.weight_file_list.setMinimumSize(QSize(0, 40))
@@ -338,17 +339,23 @@ class Ui_MainWindow(object):
         self.GPU = QCheckBox(self.horizontalLayoutWidget)
         self.GPU.setObjectName(u"GPU")
         self.GPU.setStyleSheet(u"QCheckBox {\n"
-"    color:white;\n"
+"color: white; \n"
 "	font: 12pt \"Microsoft YaHei UI\";\n"
-"    background-color:transparent;\n"
 "}\n"
-"\n"
 "QCheckBox::indicator {\n"
-"    /* \u9009\u62e9\u6846\u5c3a\u5bf8 */\n"
-"    width:20px;\n"
-"    height:20px;\n"
+"width: 20px; \n"
+"height: 20px;\n"
 "}\n"
-"")
+"QCheckBox::indicator:checked {\n"
+"	background-color: rgb(151, 190, 21);\n"
+"border: 2px solid  rgb(200\uff0c200\uff0c200);\n"
+"border-radius:5px;\n"
+"}\n"
+"QCheckBox::indicator:unchecked {\n"
+"background-color: white;\n"
+"border: 2px solid rgb(200\uff0c200\uff0c200);\n"
+"border-radius:5px\n"
+" }")
         self.GPU.setChecked(True)
 
         self.horizontalLayout_4.addWidget(self.GPU)
@@ -356,16 +363,23 @@ class Ui_MainWindow(object):
         self.CPU = QCheckBox(self.horizontalLayoutWidget)
         self.CPU.setObjectName(u"CPU")
         self.CPU.setStyleSheet(u"QCheckBox {\n"
-"    color:white;\n"
+"color: white; \n"
 "	font: 12pt \"Microsoft YaHei UI\";\n"
-"    background-color:transparent;\n"
 "}\n"
-"\n"
 "QCheckBox::indicator {\n"
-"    /* \u9009\u62e9\u6846\u5c3a\u5bf8 */\n"
-"    width:20px;\n"
-"    height:20px;\n"
-"}")
+"width: 20px; \n"
+"height: 20px;\n"
+"}\n"
+"QCheckBox::indicator:checked {\n"
+"	background-color: rgb(151, 190, 21);\n"
+"border: 2px solid  rgb(200\uff0c200\uff0c200);\n"
+"border-radius:5px;\n"
+"}\n"
+"QCheckBox::indicator:unchecked {\n"
+"background-color: white;\n"
+"border: 2px solid rgb(200\uff0c200\uff0c200);\n"
+"border-radius:5px\n"
+" }")
 
         self.horizontalLayout_4.addWidget(self.CPU)
 
@@ -384,7 +398,7 @@ class Ui_MainWindow(object):
         self.page_6.setObjectName(u"page_6")
         self.groupBox_3 = QGroupBox(self.page_6)
         self.groupBox_3.setObjectName(u"groupBox_3")
-        self.groupBox_3.setGeometry(QRect(9, -1, 1001, 641))
+        self.groupBox_3.setGeometry(QRect(9, -1, 1001, 651))
         self.groupBox_3.setStyleSheet(u"QGroupBox\n"
 "{\n"
 "	\n"
@@ -395,7 +409,7 @@ class Ui_MainWindow(object):
 "}")
         self.verticalLayoutWidget_3 = QWidget(self.groupBox_3)
         self.verticalLayoutWidget_3.setObjectName(u"verticalLayoutWidget_3")
-        self.verticalLayoutWidget_3.setGeometry(QRect(9, 19, 981, 611))
+        self.verticalLayoutWidget_3.setGeometry(QRect(9, 19, 981, 621))
         self.verticalLayout_3 = QVBoxLayout(self.verticalLayoutWidget_3)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
@@ -433,6 +447,7 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.horizontalLayout_3.setContentsMargins(-1, -1, 10, -1)
         self.stream_reload = QPushButton(self.verticalLayoutWidget_3)
         self.stream_reload.setObjectName(u"stream_reload")
         self.stream_reload.setStyleSheet(u"background-color:  transparent;\n"
@@ -447,6 +462,79 @@ class Ui_MainWindow(object):
         self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.horizontalLayout_3.addItem(self.horizontalSpacer_4)
+
+        self.box = QCheckBox(self.verticalLayoutWidget_3)
+        self.box.setObjectName(u"box")
+        self.box.setStyleSheet(u"QCheckBox {\n"
+"color: white; \n"
+"	font: 12pt \"Microsoft YaHei UI\";\n"
+"}\n"
+"QCheckBox::indicator {\n"
+"width: 20px; \n"
+"height: 20px;\n"
+"}\n"
+"QCheckBox::indicator:checked {\n"
+"	background-color: rgb(151, 190, 21);\n"
+"border: 2px solid  rgb(56, 57, 52);\n"
+"border-radius:5px;\n"
+"}\n"
+"QCheckBox::indicator:unchecked {\n"
+"background-color: white;\n"
+"border: 2px solid rgb(56, 57, 52);\n"
+"border-radius:5px\n"
+" }")
+        self.box.setIconSize(QSize(40, 40))
+        self.box.setChecked(True)
+
+        self.horizontalLayout_3.addWidget(self.box)
+
+        self.Label = QCheckBox(self.verticalLayoutWidget_3)
+        self.Label.setObjectName(u"Label")
+        self.Label.setStyleSheet(u"QCheckBox {\n"
+"color: white; \n"
+"	font: 12pt \"Microsoft YaHei UI\";\n"
+"}\n"
+"QCheckBox::indicator {\n"
+"width: 20px; \n"
+"height: 20px;\n"
+"}\n"
+"QCheckBox::indicator:checked {\n"
+"	background-color: rgb(151, 190, 21);\n"
+"border: 2px solid  rgb(56, 57, 52);\n"
+"border-radius:5px;\n"
+"}\n"
+"QCheckBox::indicator:unchecked {\n"
+"background-color: white;\n"
+"border: 2px solid rgb(56, 57, 52);\n"
+"border-radius:5px\n"
+" }")
+        self.Label.setChecked(True)
+
+        self.horizontalLayout_3.addWidget(self.Label)
+
+        self.mask = QCheckBox(self.verticalLayoutWidget_3)
+        self.mask.setObjectName(u"mask")
+        self.mask.setStyleSheet(u"QCheckBox {\n"
+"color: white; \n"
+"	font: 12pt \"Microsoft YaHei UI\";\n"
+"}\n"
+"QCheckBox::indicator {\n"
+"width: 20px; \n"
+"height: 20px;\n"
+"}\n"
+"QCheckBox::indicator:checked {\n"
+"	background-color: rgb(151, 190, 21);\n"
+"border: 2px solid  rgb(56, 57, 52);\n"
+"border-radius:5px;\n"
+"}\n"
+"QCheckBox::indicator:unchecked {\n"
+"background-color: white;\n"
+"border: 2px solid rgb(56, 57, 52);\n"
+"border-radius:5px\n"
+" }")
+        self.mask.setChecked(True)
+
+        self.horizontalLayout_3.addWidget(self.mask)
 
 
         self.verticalLayout_3.addLayout(self.horizontalLayout_3)
@@ -686,6 +774,7 @@ class Ui_MainWindow(object):
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"\u63a8\u7406\u7f6e\u4fe1\u5ea6", None))
         self.conf_value.setText(QCoreApplication.translate("MainWindow", u"0.50", None))
         self.weight_file_list.setItemText(0, QCoreApplication.translate("MainWindow", u"D:\\Download\\best.pt", None))
+        self.weight_file_list.setItemText(1, QCoreApplication.translate("MainWindow", u"../../utils/best.pt", None))
 
         self.GPU.setText(QCoreApplication.translate("MainWindow", u"GPU", None))
         self.CPU.setText(QCoreApplication.translate("MainWindow", u"CPU", None))
@@ -693,6 +782,9 @@ class Ui_MainWindow(object):
         self.groupBox_3.setTitle(QCoreApplication.translate("MainWindow", u"\u7ed3\u679c\u9884\u89c8", None))
         self.annotated_image.setText(QCoreApplication.translate("MainWindow", u"\u7b49\u5f85\u89c6\u9891\u6d41\u5bfc\u5165...", None))
         self.stream_reload.setText("")
+        self.box.setText(QCoreApplication.translate("MainWindow", u"\u68c0\u6d4b\u6846", None))
+        self.Label.setText(QCoreApplication.translate("MainWindow", u"\u6807\u7b7e", None))
+        self.mask.setText(QCoreApplication.translate("MainWindow", u"\u63a9\u819c", None))
         self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"\u7ed3\u679c\u663e\u793a", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u914d\u91cd\u603b\u6570\u91cf", None))
         self.num_weight.setText("")
