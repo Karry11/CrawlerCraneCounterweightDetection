@@ -9,6 +9,8 @@
         "font/退出.png",
         "font/down-arrow.png",
         "font/左箭头.png",
-        "Stream_Inference.py"
+        "Stream_Inference.py",
+        "font/红灯.png",
+        "font/绿灯.png"
     ]
 }

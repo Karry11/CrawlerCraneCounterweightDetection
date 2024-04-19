@@ -8,8 +8,10 @@ from ultralytics import YOLO
 import numpy as np
 class Stream_Inference(QThread):
     processed_image = Signal(QImage)
+    result_info = Signal(int,float,float,float,str)
     def __init__(self,stream_path,weight_path,imgsz,conf,device,half,weight_sr,weight_character):
         super().__init__()
+        #配重检测
         self.stream_path = stream_path
         self.weight_path = weight_path
         self.weight_character = weight_character
@@ -19,12 +21,20 @@ class Stream_Inference(QThread):
         self.half=half
         self.model = YOLO(self.weight_path)
         self.thread_stop = False
+
+        #切片字符检测
         self.sr_model_flag = False
         self.sr_model = cv2.dnn_superres.DnnSuperResImpl_create()
         self.sr_model.readModel(weight_sr)
         self.sr_model.setModel("espcn", 2)
         self.model_character = YOLO(self.weight_character)
 
+        #结果信息
+        self.num_weight=5
+        self.total_mass=10.00
+        self.total_mass_L=5.00
+        self.total_mass_R=5.00
+        self.warming_info="安全"
     def stop(self):
         self.thread_stop = True
     def sr_model_state(self):
@@ -68,7 +78,10 @@ class Stream_Inference(QThread):
                 h, w, ch = rgb_image.shape
                 bytes_per_line = ch * w
                 qimage = QImage(rgb_image.data, w, h, bytes_per_line, QImage.Format_RGB888)
+                self.num_weight = len(result[0].boxes)
+
                 self.processed_image.emit(qimage)
+                self.result_info.emit(self.num_weight,self.total_mass,self.total_mass_L,self.total_mass_R,self.warming_info)
             else:
                 break
             end_time = time.time()

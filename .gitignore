@@ -13,3 +13,7 @@ predict.py
 Project_UI/CrawlerCraneCounterweightDetection/CrawlerCraneCounterweightDetection.pyproject.user
 *.user
 *.user
+yolov8s.pt
+*.avi
+SAHI.py
+SAHI.py

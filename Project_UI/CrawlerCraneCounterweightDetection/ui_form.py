@@ -410,6 +410,9 @@ class Ui_MainWindow(object):
         sizePolicy2.setHeightForWidth(self.annotated_image.sizePolicy().hasHeightForWidth())
         self.annotated_image.setSizePolicy(sizePolicy2)
         self.annotated_image.setMinimumSize(QSize(960, 540))
+        self.annotated_image.setStyleSheet(u"color: rgb(115, 115, 115);\n"
+"font: 700 14pt \"Microsoft YaHei UI\";")
+        self.annotated_image.setAlignment(Qt.AlignCenter)
 
         self.gridLayout.addWidget(self.annotated_image, 1, 1, 1, 1)
 
@@ -464,6 +467,191 @@ class Ui_MainWindow(object):
 "	border-radius:10px;\n"
 "	border:2px solid gray;\n"
 "}")
+        self.verticalLayoutWidget_2 = QWidget(self.groupBox)
+        self.verticalLayoutWidget_2.setObjectName(u"verticalLayoutWidget_2")
+        self.verticalLayoutWidget_2.setGeometry(QRect(10, 21, 221, 630))
+        self.verticalLayout_4 = QVBoxLayout(self.verticalLayoutWidget_2)
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.verticalLayout_4.setContentsMargins(5, 0, 0, 0)
+        self.horizontalLayout_5 = QHBoxLayout()
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.horizontalLayout_5.setContentsMargins(10, -1, 10, -1)
+        self.label_3 = QLabel(self.verticalLayoutWidget_2)
+        self.label_3.setObjectName(u"label_3")
+        self.label_3.setStyleSheet(u"background-color:transparent;\n"
+"font: 12pt \"Microsoft YaHei UI\";\n"
+"color: rgb(151, 190, 21);")
+
+        self.horizontalLayout_5.addWidget(self.label_3)
+
+        self.num_weight = QLabel(self.verticalLayoutWidget_2)
+        self.num_weight.setObjectName(u"num_weight")
+        sizePolicy2.setHeightForWidth(self.num_weight.sizePolicy().hasHeightForWidth())
+        self.num_weight.setSizePolicy(sizePolicy2)
+        self.num_weight.setMinimumSize(QSize(50, 50))
+        self.num_weight.setMaximumSize(QSize(150, 50))
+        self.num_weight.setStyleSheet(u"border:2px solid gray;\n"
+"border-radius:15px;\n"
+"background-color:transparent;\n"
+"font: 12pt \"Microsoft YaHei UI\";\n"
+"color: white;\n"
+"")
+        self.num_weight.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_5.addWidget(self.num_weight)
+
+
+        self.verticalLayout_4.addLayout(self.horizontalLayout_5)
+
+        self.horizontalLayout_6 = QHBoxLayout()
+        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
+        self.horizontalLayout_6.setContentsMargins(10, -1, 10, -1)
+        self.label_5 = QLabel(self.verticalLayoutWidget_2)
+        self.label_5.setObjectName(u"label_5")
+        self.label_5.setStyleSheet(u"background-color:transparent;\n"
+"font: 12pt \"Microsoft YaHei UI\";\n"
+"color: rgb(151, 190, 21);")
+
+        self.horizontalLayout_6.addWidget(self.label_5)
+
+        self.total_mass = QLabel(self.verticalLayoutWidget_2)
+        self.total_mass.setObjectName(u"total_mass")
+        sizePolicy2.setHeightForWidth(self.total_mass.sizePolicy().hasHeightForWidth())
+        self.total_mass.setSizePolicy(sizePolicy2)
+        self.total_mass.setMinimumSize(QSize(50, 50))
+        self.total_mass.setMaximumSize(QSize(150, 50))
+        self.total_mass.setStyleSheet(u"border:2px solid gray;\n"
+"border-radius:15px;\n"
+"background-color:transparent;\n"
+"font: 12pt \"Microsoft YaHei UI\";\n"
+"color: white;\n"
+"")
+        self.total_mass.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_6.addWidget(self.total_mass)
+
+
+        self.verticalLayout_4.addLayout(self.horizontalLayout_6)
+
+        self.horizontalLayout_7 = QHBoxLayout()
+        self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
+        self.horizontalLayout_7.setContentsMargins(10, -1, 10, -1)
+        self.label_10 = QLabel(self.verticalLayoutWidget_2)
+        self.label_10.setObjectName(u"label_10")
+        self.label_10.setStyleSheet(u"background-color:transparent;\n"
+"font: 12pt \"Microsoft YaHei UI\";\n"
+"color: rgb(151, 190, 21);")
+
+        self.horizontalLayout_7.addWidget(self.label_10)
+
+        self.total_mass_L = QLabel(self.verticalLayoutWidget_2)
+        self.total_mass_L.setObjectName(u"total_mass_L")
+        sizePolicy2.setHeightForWidth(self.total_mass_L.sizePolicy().hasHeightForWidth())
+        self.total_mass_L.setSizePolicy(sizePolicy2)
+        self.total_mass_L.setMinimumSize(QSize(50, 50))
+        self.total_mass_L.setMaximumSize(QSize(150, 50))
+        self.total_mass_L.setStyleSheet(u"border:2px solid gray;\n"
+"border-radius:15px;\n"
+"background-color:transparent;\n"
+"font: 12pt \"Microsoft YaHei UI\";\n"
+"color: white;\n"
+"")
+        self.total_mass_L.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_7.addWidget(self.total_mass_L)
+
+
+        self.verticalLayout_4.addLayout(self.horizontalLayout_7)
+
+        self.horizontalLayout_8 = QHBoxLayout()
+        self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
+        self.horizontalLayout_8.setContentsMargins(10, -1, 10, -1)
+        self.label_12 = QLabel(self.verticalLayoutWidget_2)
+        self.label_12.setObjectName(u"label_12")
+        self.label_12.setStyleSheet(u"background-color:transparent;\n"
+"font: 12pt \"Microsoft YaHei UI\";\n"
+"color: rgb(151, 190, 21);")
+
+        self.horizontalLayout_8.addWidget(self.label_12)
+
+        self.total_mass_R = QLabel(self.verticalLayoutWidget_2)
+        self.total_mass_R.setObjectName(u"total_mass_R")
+        sizePolicy2.setHeightForWidth(self.total_mass_R.sizePolicy().hasHeightForWidth())
+        self.total_mass_R.setSizePolicy(sizePolicy2)
+        self.total_mass_R.setMinimumSize(QSize(50, 50))
+        self.total_mass_R.setMaximumSize(QSize(150, 50))
+        self.total_mass_R.setStyleSheet(u"border:2px solid gray;\n"
+"border-radius:15px;\n"
+"background-color:transparent;\n"
+"font: 12pt \"Microsoft YaHei UI\";\n"
+"color: white;\n"
+"")
+        self.total_mass_R.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_8.addWidget(self.total_mass_R)
+
+
+        self.verticalLayout_4.addLayout(self.horizontalLayout_8)
+
+        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.verticalLayout_4.addItem(self.verticalSpacer_3)
+
+        self.verticalLayout_5 = QVBoxLayout()
+        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.verticalLayout_5.setContentsMargins(10, -1, 10, -1)
+        self.groupBox_5 = QGroupBox(self.verticalLayoutWidget_2)
+        self.groupBox_5.setObjectName(u"groupBox_5")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.groupBox_5.sizePolicy().hasHeightForWidth())
+        self.groupBox_5.setSizePolicy(sizePolicy3)
+        self.groupBox_5.setMinimumSize(QSize(0, 300))
+        self.groupBox_5.setStyleSheet(u"color: rgb(151, 190, 21);\n"
+"font: 12pt \"Microsoft YaHei UI\";")
+        self.warming_info = QLabel(self.groupBox_5)
+        self.warming_info.setObjectName(u"warming_info")
+        self.warming_info.setGeometry(QRect(10, 20, 181, 271))
+        self.warming_info.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 12pt \"Microsoft YaHei UI\";")
+        self.warming_info.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_5.addWidget(self.groupBox_5)
+
+
+        self.verticalLayout_4.addLayout(self.verticalLayout_5)
+
+        self.horizontalLayout_9 = QHBoxLayout()
+        self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
+        self.horizontalLayout_9.setContentsMargins(10, -1, 10, 10)
+        self.warming_alarm = QLabel(self.verticalLayoutWidget_2)
+        self.warming_alarm.setObjectName(u"warming_alarm")
+        sizePolicy2.setHeightForWidth(self.warming_alarm.sizePolicy().hasHeightForWidth())
+        self.warming_alarm.setSizePolicy(sizePolicy2)
+        self.warming_alarm.setMinimumSize(QSize(50, 50))
+        self.warming_alarm.setMaximumSize(QSize(50, 50))
+        self.warming_alarm.setStyleSheet(u"background-color:transparent;\n"
+"font: 12pt \"Microsoft YaHei UI\";\n"
+"color: rgb(151, 190, 21);")
+        self.warming_alarm.setPixmap(QPixmap(u"font/\u7eff\u706f.png"))
+        self.warming_alarm.setScaledContents(True)
+        self.warming_alarm.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_9.addWidget(self.warming_alarm)
+
+        self.label_15 = QLabel(self.verticalLayoutWidget_2)
+        self.label_15.setObjectName(u"label_15")
+        self.label_15.setStyleSheet(u"background-color:transparent;\n"
+"font: 700 14pt \"Microsoft YaHei UI\";\n"
+"color: rgb(151, 190, 21);")
+        self.label_15.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_9.addWidget(self.label_15)
+
+
+        self.verticalLayout_4.addLayout(self.horizontalLayout_9)
+
 
         self.verticalLayout_2.addWidget(self.groupBox)
 
@@ -476,7 +664,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -503,8 +691,20 @@ class Ui_MainWindow(object):
         self.CPU.setText(QCoreApplication.translate("MainWindow", u"CPU", None))
         self.imgsz.setText(QCoreApplication.translate("MainWindow", u"640", None))
         self.groupBox_3.setTitle(QCoreApplication.translate("MainWindow", u"\u7ed3\u679c\u9884\u89c8", None))
-        self.annotated_image.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
+        self.annotated_image.setText(QCoreApplication.translate("MainWindow", u"\u7b49\u5f85\u89c6\u9891\u6d41\u5bfc\u5165...", None))
         self.stream_reload.setText("")
         self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"\u7ed3\u679c\u663e\u793a", None))
+        self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u914d\u91cd\u603b\u6570\u91cf", None))
+        self.num_weight.setText("")
+        self.label_5.setText(QCoreApplication.translate("MainWindow", u"\u914d\u91cd\u603b\u91cd\u91cf(t)", None))
+        self.total_mass.setText("")
+        self.label_10.setText(QCoreApplication.translate("MainWindow", u"\u5de6\u4fa7\u603b\u91cd\u91cf(t)", None))
+        self.total_mass_L.setText("")
+        self.label_12.setText(QCoreApplication.translate("MainWindow", u"\u53f3\u4fa7\u603b\u91cd\u91cf(t)", None))
+        self.total_mass_R.setText("")
+        self.groupBox_5.setTitle(QCoreApplication.translate("MainWindow", u"\u9884\u8b66\u4fe1\u606f", None))
+        self.warming_info.setText("")
+        self.warming_alarm.setText("")
+        self.label_15.setText(QCoreApplication.translate("MainWindow", u"\u7cfb\u7edf\u72b6\u6001", None))
     # retranslateUi
 

@@ -82,6 +82,7 @@ class MainWindow(QWidget):
         self.conf = self.ui.conf.value()*0.01
         self.stream_inference_thread = Stream_Inference(self.stream_path,self.weight_path,self.imgsz,self.conf,self.device,self.half,self.weight_sr, self.weight_character)
         self.stream_inference_thread.processed_image.connect(self.display_processed_image)
+        self.stream_inference_thread.result_info.connect(self.display_results)
         self.stream_inference_thread.start()
         self.ui.stackedWidget.setCurrentIndex(1)
 
@@ -93,6 +94,13 @@ class MainWindow(QWidget):
         pixmap = QPixmap.fromImage(image)
         pixmap = pixmap.scaled(self.ui.annotated_image.size())
         self.ui.annotated_image.setPixmap(pixmap)
+
+    def display_results(self,num_weight,total_mass,total_mass_L,total_mass_R,warming_info):
+        self.ui.num_weight.setText(str(num_weight))
+        self.ui.total_mass.setText(str(total_mass))
+        self.ui.total_mass_L.setText(str(total_mass_L))
+        self.ui.total_mass_R.setText(str(total_mass_R))
+        self.ui.warming_info.setText(warming_info)
 
     def device_select(self,button):
         buttons = self.deviceButtonGroup.buttons()
