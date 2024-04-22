@@ -32,6 +32,7 @@ class Stream_Inference(QThread):
         self.sr_model.readModel(weight_sr)
         self.sr_model.setModel("espcn", 2)
         self.model_character = YOLO(self.weight_character)
+        self.model_character_dic = {0: '10t', 1: '5.1t', 2: '5t', 3: '8.1t'}
 
         #结果信息
         self.num_weight=5
@@ -44,6 +45,21 @@ class Stream_Inference(QThread):
         self.thread_stop = True
     def sr_model_state(self):
         self.sr_model_flag=True
+
+    def _slice_classify(self, slice_list):
+        dic_target = {0:0,1:0,2:0,3:0}
+        for slice_img, conf in slice_list:
+            inference_number = self.model_character.predict(slice_img,Save=False)[0].boxes.cls.cpu().numpy()
+            if len(inference_number) < 1:
+                continue
+            else:
+                #针对单张子图识别出多个类别的情况进行优化，只返回子图中出现次数最多的数字
+                unique_nums, counts = np.unique(inference_number, return_counts=True)
+                most_frequent_index = np.argmax(counts)
+                most_frequent = int(unique_nums[most_frequent_index])
+                dic_target[most_frequent] += 1
+        # 返回出现次数最多的数字
+        return max(dic_target, key=lambda k: dic_target[k])
 
     def _get_image_slice(predict_result, sr_model=None, super_resolution=True):
         try:
@@ -77,6 +93,8 @@ class Stream_Inference(QThread):
                 result = self.model(frame,imgsz=self.imgsz,conf=self.conf,half=self.half ,device=self.device)
                 # 通过预测狂和原始图像数据得到切片图像，通过对切片图像完成超分辨率增强后输出结果 [(图像切片1，置信度1),(图像切片2， 置信度2).....]
                 slice_result = self._get_image_slice(result, self.sr_model)
+                classify_number = self._slice_classify(slice_result)
+
                 annotated_image = result[0].plot(conf=True,line_width=2,font_size=None,font="Arial.ttf",pil=False,img=None,im_gpu=None,kpt_radius=5,
                             kpt_line=True,labels=self.label,boxes=self.box,masks=self.mask,probs=True,show=False,save=False,filename=None,)
                 rgb_image = cv2.cvtColor(annotated_image, cv2.COLOR_BGR2RGB)
@@ -90,6 +108,7 @@ class Stream_Inference(QThread):
                 # 获取出现次数最多的元素（众数）
                 self.num_weight = counter.most_common(1)[0][0]
                 self.processed_image.emit(qimage)
+                self.total_mass = self.num_weight * float(eval(self.model_character_dic[classify_number][0:-1]))
                 self.result_info.emit(self.num_weight,self.total_mass,self.total_mass_L,self.total_mass_R,self.warming_info)
             else:
                 break
