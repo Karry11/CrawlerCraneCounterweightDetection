@@ -25,7 +25,6 @@ class MainWindow(QWidget):
         self.deviceButtonGroup.addButton(self.ui.CPU)
         self.deviceButtonGroup.buttonClicked.connect(self.device_select)
         self.ui.conf_value.setText("0.50")
-        self.ui.mask.clicked.connect(self.show_mask)
         self.ui.box.clicked.connect(self.show_box)
         self.ui.Label.clicked.connect(self.show_label)
         self.stream_inference_thread=""
@@ -35,11 +34,8 @@ class MainWindow(QWidget):
         self.half=False
         self.weight_path="../../utils/best.pt"
         self.weight_sr = "../../utils/ESPCN_x2.pb"
-        self.weight_character = "../../CounterweightCharacterRecognition/detect/train/weights/best.pt"
+        self.weight_character = "../../CounterweightCharacterRecognition/detect/train/weights/best.engine"
         self.ui.conf.valueChanged.connect(self.sliderChanged)
-
-    def show_mask(self):
-        self.stream_inference_thread.mask = (lambda x: True if x.isChecked() else False)(self.ui.mask)
 
     def show_box(self):
         self.stream_inference_thread.box = (lambda x: True if x.isChecked() else False)(self.ui.box)
@@ -73,7 +69,7 @@ class MainWindow(QWidget):
                 else:
                     return
         elif type ==1:
-            file_dialog.setNameFilter("Weight Files (*.pt)")
+            file_dialog.setNameFilter("Weight Files (*.pt *.engine *.onnx)")
             if file_dialog.exec():
                 selected_files = file_dialog.selectedFiles()
                 if len(selected_files) == 1:

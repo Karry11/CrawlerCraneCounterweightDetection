@@ -112,7 +112,7 @@ border:none;</string>
          </size>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="page_5">
          <widget class="QGroupBox" name="groupBox_2">
@@ -230,12 +230,12 @@ QComboBox QAbstractItemView::item:selected{
            </property>
            <item>
             <property name="text">
-             <string>0</string>
+             <string>D:\视频\超起配重3月8日.mp4</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>D:\视频\超起配重3月8日.mp4</string>
+             <string>0</string>
             </property>
            </item>
           </widget>
@@ -632,6 +632,11 @@ QComboBox QAbstractItemView::item:selected{
            </property>
            <item>
             <property name="text">
+             <string>../../utils/best_FP16.engine</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
              <string>D:\Download\best.pt</string>
             </property>
            </item>
@@ -950,36 +955,6 @@ border-radius:5px
                 </property>
                 <property name="text">
                  <string>标签</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="mask">
-                <property name="styleSheet">
-                 <string notr="true">QCheckBox {
-color: white; 
-	font: 12pt &quot;Microsoft YaHei UI&quot;;
-}
-QCheckBox::indicator {
-width: 20px; 
-height: 20px;
-}
-QCheckBox::indicator:checked {
-	background-color: rgb(151, 190, 21);
-border: 2px solid  rgb(56, 57, 52);
-border-radius:5px;
-}
-QCheckBox::indicator:unchecked {
-background-color: white;
-border: 2px solid rgb(56, 57, 52);
-border-radius:5px
- }</string>
-                </property>
-                <property name="text">
-                 <string>掩膜</string>
                 </property>
                 <property name="checked">
                  <bool>true</bool>

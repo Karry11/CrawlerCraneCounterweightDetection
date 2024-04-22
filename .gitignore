@@ -17,3 +17,7 @@ yolov8s.pt
 *.avi
 SAHI.py
 SAHI.py
+*.user
+utils/best.onnx
+utils/best_FP16.onnx
+utils/best_FP16.pt

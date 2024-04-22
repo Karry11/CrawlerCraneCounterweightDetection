@@ -281,6 +281,7 @@ class Ui_MainWindow(object):
         self.weight_file_list = QComboBox(self.groupBox_4)
         self.weight_file_list.addItem("")
         self.weight_file_list.addItem("")
+        self.weight_file_list.addItem("")
         self.weight_file_list.setObjectName(u"weight_file_list")
         self.weight_file_list.setGeometry(QRect(140, 40, 651, 40))
         self.weight_file_list.setMinimumSize(QSize(0, 40))
@@ -512,30 +513,6 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_3.addWidget(self.Label)
 
-        self.mask = QCheckBox(self.verticalLayoutWidget_3)
-        self.mask.setObjectName(u"mask")
-        self.mask.setStyleSheet(u"QCheckBox {\n"
-"color: white; \n"
-"	font: 12pt \"Microsoft YaHei UI\";\n"
-"}\n"
-"QCheckBox::indicator {\n"
-"width: 20px; \n"
-"height: 20px;\n"
-"}\n"
-"QCheckBox::indicator:checked {\n"
-"	background-color: rgb(151, 190, 21);\n"
-"border: 2px solid  rgb(56, 57, 52);\n"
-"border-radius:5px;\n"
-"}\n"
-"QCheckBox::indicator:unchecked {\n"
-"background-color: white;\n"
-"border: 2px solid rgb(56, 57, 52);\n"
-"border-radius:5px\n"
-" }")
-        self.mask.setChecked(True)
-
-        self.horizontalLayout_3.addWidget(self.mask)
-
 
         self.verticalLayout_3.addLayout(self.horizontalLayout_3)
 
@@ -752,7 +729,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -763,8 +740,8 @@ class Ui_MainWindow(object):
         self.label.setText("")
         self.exit.setText("")
         self.groupBox_2.setTitle(QCoreApplication.translate("MainWindow", u"\u89c6\u9891\u6d41\u5bfc\u5165", None))
-        self.stream_file_list.setItemText(0, QCoreApplication.translate("MainWindow", u"0", None))
-        self.stream_file_list.setItemText(1, QCoreApplication.translate("MainWindow", u"D:\\\u89c6\u9891\\\u8d85\u8d77\u914d\u91cd3\u67088\u65e5.mp4", None))
+        self.stream_file_list.setItemText(0, QCoreApplication.translate("MainWindow", u"D:\\\u89c6\u9891\\\u8d85\u8d77\u914d\u91cd3\u67088\u65e5.mp4", None))
+        self.stream_file_list.setItemText(1, QCoreApplication.translate("MainWindow", u"0", None))
 
         self.stream_import.setText("")
         self.groupBox_4.setTitle(QCoreApplication.translate("MainWindow", u"\u63a8\u7406\u53c2\u6570\u8bbe\u7f6e", None))
@@ -773,8 +750,9 @@ class Ui_MainWindow(object):
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"\u56fe\u7247\u5c3a\u5bf8", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"\u63a8\u7406\u7f6e\u4fe1\u5ea6", None))
         self.conf_value.setText(QCoreApplication.translate("MainWindow", u"0.50", None))
-        self.weight_file_list.setItemText(0, QCoreApplication.translate("MainWindow", u"D:\\Download\\best.pt", None))
-        self.weight_file_list.setItemText(1, QCoreApplication.translate("MainWindow", u"../../utils/best.pt", None))
+        self.weight_file_list.setItemText(0, QCoreApplication.translate("MainWindow", u"../../utils/best_FP16.engine", None))
+        self.weight_file_list.setItemText(1, QCoreApplication.translate("MainWindow", u"D:\\Download\\best.pt", None))
+        self.weight_file_list.setItemText(2, QCoreApplication.translate("MainWindow", u"../../utils/best.pt", None))
 
         self.GPU.setText(QCoreApplication.translate("MainWindow", u"GPU", None))
         self.CPU.setText(QCoreApplication.translate("MainWindow", u"CPU", None))
@@ -784,7 +762,6 @@ class Ui_MainWindow(object):
         self.stream_reload.setText("")
         self.box.setText(QCoreApplication.translate("MainWindow", u"\u68c0\u6d4b\u6846", None))
         self.Label.setText(QCoreApplication.translate("MainWindow", u"\u6807\u7b7e", None))
-        self.mask.setText(QCoreApplication.translate("MainWindow", u"\u63a9\u819c", None))
         self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"\u7ed3\u679c\u663e\u793a", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u914d\u91cd\u603b\u6570\u91cf", None))
         self.num_weight.setText("")

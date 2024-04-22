@@ -20,9 +20,8 @@ class Stream_Inference(QThread):
         self.conf=conf
         self.device=device
         self.half=half
-        self.model = YOLO(self.weight_path)
+        self.model = YOLO(self.weight_path,task='segment')
         self.thread_stop = False
-        self.mask=True
         self.label=True
         self.box = True
 
@@ -41,8 +40,10 @@ class Stream_Inference(QThread):
         self.total_mass_L=5.00
         self.total_mass_R=5.00
         self.warming_info="安全"
+
     def stop(self):
         self.thread_stop = True
+
     def sr_model_state(self):
         self.sr_model_flag=True
 
@@ -69,7 +70,6 @@ class Stream_Inference(QThread):
         boxes = predict_result[0].boxes.cpu().numpy().data
         # 置信度
         conf_list = boxes[:, 4]
-
         # 对检测框参数进行向下取整
         int_boxes = np.floor(boxes).astype(int)
         img_list = []
@@ -77,10 +77,11 @@ class Stream_Inference(QThread):
             x1, y1, x2, y2 = int_boxes[i][0], int_boxes[i][1], int_boxes[i][2], int_boxes[i][3]
             img_i = original_image[y1:y2 + 1, x1:x2 + 1]
             # 如果需要进行超分辨里增强的话，则调用sr_model完成上采样操作（默认放大因子为2）
-            if super_resolution:
-                img_i = sr_model.upsample(img_i)
-            img_list.append((img_i, conf_list[i]))
-        return img_list
+            if self.sr_model_flag:
+                img_i = self.sr_model.upsample(img_i)
+            img_list.append(img_i)
+            result = self.model_character(img_i,imgsz=320)
+        return result
 
     def run(self):
         cap = cv2.VideoCapture(self.stream_path)
@@ -90,13 +91,13 @@ class Stream_Inference(QThread):
             start_time = time.time()
             ret, frame = cap.read()
             if ret:
-                result = self.model(frame,imgsz=self.imgsz,conf=self.conf,half=self.half ,device=self.device)
+                result = self.model(frame,imgsz=self.imgsz,conf=self.conf,half=self.half ,device=self.device,vid_stride = 3)
                 # 通过预测狂和原始图像数据得到切片图像，通过对切片图像完成超分辨率增强后输出结果 [(图像切片1，置信度1),(图像切片2， 置信度2).....]
                 slice_result = self._get_image_slice(result, self.sr_model)
                 classify_number = self._slice_classify(slice_result)
 
                 annotated_image = result[0].plot(conf=True,line_width=2,font_size=None,font="Arial.ttf",pil=False,img=None,im_gpu=None,kpt_radius=5,
-                            kpt_line=True,labels=self.label,boxes=self.box,masks=self.mask,probs=True,show=False,save=False,filename=None,)
+                            kpt_line=True,labels=self.label,boxes=self.box,masks=False,probs=True,show=False,save=False,filename=None,)
                 rgb_image = cv2.cvtColor(annotated_image, cv2.COLOR_BGR2RGB)
                 h, w, ch = rgb_image.shape
                 bytes_per_line = ch * w
@@ -110,10 +111,12 @@ class Stream_Inference(QThread):
                 self.processed_image.emit(qimage)
                 self.total_mass = self.num_weight * float(eval(self.model_character_dic[classify_number][0:-1]))
                 self.result_info.emit(self.num_weight,self.total_mass,self.total_mass_L,self.total_mass_R,self.warming_info)
+
             else:
                 break
             end_time = time.time()
-            processing_time = start_time-end_time
+            processing_time = (end_time-start_time)*1000
+            print(processing_time)
             if processing_time>delta_time:
                 continue
             else:
