@@ -49,8 +49,13 @@ class Stream_Inference(QThread):
 
     def _slice_classify(self, slice_list):
         dic_target = {0:0,1:0,2:0,3:0}
-        for slice_img, conf in slice_list:
-            inference_number = self.model_character.predict(slice_img,Save=False)[0].boxes.cls.cpu().numpy()
+        character_pos=[]
+        for slice_img, conf, int_box in slice_list:
+            result = self.model_character.predict(slice_img)
+            inference_number = result[0].boxes.cls.cpu().numpy()
+            boxes = result[0].boxes.cpu().numpy().data
+            sorted_box_list = sorted(boxes, key=lambda x: x[4], reverse=True)
+            char_int_boxes =  np.floor(sorted_box_list).astype(int)
             if len(inference_number) < 1:
                 continue
             else:
@@ -59,15 +64,15 @@ class Stream_Inference(QThread):
                 most_frequent_index = np.argmax(counts)
                 most_frequent = int(unique_nums[most_frequent_index])
                 dic_target[most_frequent] += 1
+                int_box[0], int_box[1], int_box[2], int_box[3] = int_box[0]+char_int_boxes[0][0],int_box[1]+char_int_boxes[0][1],int_box[0]+char_int_boxes[0][2],int_box[1]+char_int_boxes[0][3]
+                #字符位置
+                character_pos.append(int_box)
         # 返回出现次数最多的数字
-        return max(dic_target, key=lambda k: dic_target[k])
+        return max(dic_target, key=lambda k: dic_target[k]),character_pos
 
-    def _get_image_slice(predict_result, sr_model=None, super_resolution=True):
-        try:
-            original_image = predict_result[0].orig_img
-        except:
-            return []
-        boxes = predict_result[0].boxes.cpu().numpy().data
+    def _get_image_slice(self):
+        original_image = self.result[0].orig_img
+        boxes = self.result[0].boxes.cpu().numpy().data
         # 置信度
         conf_list = boxes[:, 4]
         # 对检测框参数进行向下取整
@@ -79,9 +84,8 @@ class Stream_Inference(QThread):
             # 如果需要进行超分辨里增强的话，则调用sr_model完成上采样操作（默认放大因子为2）
             if self.sr_model_flag:
                 img_i = self.sr_model.upsample(img_i)
-            img_list.append(img_i)
-            result = self.model_character(img_i,imgsz=320)
-        return result
+            img_list.append((img_i,conf_list[i],int_boxes[i]))
+        return img_list
 
     def run(self):
         cap = cv2.VideoCapture(self.stream_path)
@@ -91,19 +95,20 @@ class Stream_Inference(QThread):
             start_time = time.time()
             ret, frame = cap.read()
             if ret:
-                result = self.model(frame,imgsz=self.imgsz,conf=self.conf,half=self.half ,device=self.device,vid_stride = 3)
+                self.result = self.model(frame,imgsz=self.imgsz,conf=self.conf,half=self.half ,device=self.device,vid_stride = 3)
                 # 通过预测狂和原始图像数据得到切片图像，通过对切片图像完成超分辨率增强后输出结果 [(图像切片1，置信度1),(图像切片2， 置信度2).....]
-                slice_result = self._get_image_slice(result, self.sr_model)
-                classify_number = self._slice_classify(slice_result)
-
-                annotated_image = result[0].plot(conf=True,line_width=2,font_size=None,font="Arial.ttf",pil=False,img=None,im_gpu=None,kpt_radius=5,
-                            kpt_line=True,labels=self.label,boxes=self.box,masks=False,probs=True,show=False,save=False,filename=None,)
+                slice_result = self._get_image_slice()
+                classify_number,character_pos = self._slice_classify(slice_result)
+                annotated_image = self.result[0].plot(conf=True,line_width=2,font_size=None,font="Arial.ttf",pil=False,img=None,im_gpu=None,kpt_radius=5,
+                            kpt_line=True,labels=self.label,boxes=self.box,masks=False,probs=True,show=False,save=False,filename=None)
+                for box in character_pos:
+                    cv2.rectangle(annotated_image, (box[0], box[1]), (box[2], box[3]),  color=(0,0,255), thickness=2)
                 rgb_image = cv2.cvtColor(annotated_image, cv2.COLOR_BGR2RGB)
                 h, w, ch = rgb_image.shape
                 bytes_per_line = ch * w
                 qimage = QImage(rgb_image.data, w, h, bytes_per_line, QImage.Format_RGB888)
                 # 将检测结果添加到队列中
-                self.num_weight_queue.append(len(result[0].boxes))
+                self.num_weight_queue.append(len(self.result[0].boxes))
                 # 获取队列中元素的统计信息
                 counter = Counter(self.num_weight_queue)
                 # 获取出现次数最多的元素（众数）
