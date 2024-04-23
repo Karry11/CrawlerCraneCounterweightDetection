@@ -11,7 +11,7 @@ from knn import knn_classifier
 class Stream_Inference(QThread):
     processed_image = Signal(QImage)
     result_info = Signal(int,float,float,float,str)
-    def __init__(self,stream_path,weight_path,imgsz,conf,device,half,weight_sr,weight_character):
+    def __init__(self,stream_path,weight_path,imgsz,conf,device,weight_sr,weight_character,imgsz_2,conf_2,device_2):
         super().__init__()
         #配重检测
         self.stream_path = stream_path
@@ -20,7 +20,6 @@ class Stream_Inference(QThread):
         self.imgsz = imgsz
         self.conf=conf
         self.device=device
-        self.half=half
         self.model = YOLO(self.weight_path,task='segment')
         self.thread_stop = False
         self.label=True
@@ -33,6 +32,9 @@ class Stream_Inference(QThread):
         self.sr_model.setModel("espcn", 2)
         self.model_character = YOLO(self.weight_character)
         self.model_character_dic = {0: '10t', 1: '5.1t', 2: '5t', 3: '8.1t'}
+        self.imgsz_2 = imgsz_2
+        self.conf_2=conf_2
+        self.device_2=device_2
 
         #结果信息
         self.num_weight=5
@@ -52,7 +54,7 @@ class Stream_Inference(QThread):
         dic_target = {0:0,1:0,2:0,3:0}
         character_pos=[]
         for slice_img, conf, int_box in slice_list:
-            result = self.model_character.predict(slice_img)
+            result = self.model_character.predict(slice_img,imgsz=self.imgsz_2,conf=self.conf_2,device=self.device_2)
             inference_number = result[0].boxes.cls.cpu().numpy()
             boxes = result[0].boxes.cpu().numpy().data
             sorted_box_list = sorted(boxes, key=lambda x: x[4], reverse=True)
@@ -102,7 +104,7 @@ class Stream_Inference(QThread):
             start_time = time.time()
             ret, frame = cap.read()
             if ret:
-                self.result = self.model(frame,imgsz=self.imgsz,conf=self.conf,half=self.half ,device=self.device,vid_stride = 3)
+                self.result = self.model(frame,imgsz=self.imgsz,conf=self.conf,device=self.device,vid_stride=3)
                 # 通过预测狂和原始图像数据得到切片图像，通过对切片图像完成超分辨率增强后输出结果 [(图像切片1，置信度1),(图像切片2， 置信度2).....]
                 slice_result = self._get_image_slice()
                 classify_number,character_pos = self._slice_classify(slice_result)
