@@ -11,6 +11,11 @@
         "font/左箭头.png",
         "Stream_Inference.py",
         "font/红灯.png",
-        "font/绿灯.png"
+        "font/绿灯.png",
+        "font/设置.png",
+        "font/主页.png",
+        "font/录像.png",
+        "config/stream_path.txt",
+        "knn.py"
     ]
 }

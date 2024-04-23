@@ -44,11 +44,43 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
 
-        self.exit = QPushButton(self.verticalLayoutWidget)
-        self.exit.setObjectName(u"exit")
+        self.home = QPushButton(self.verticalLayoutWidget)
+        self.home.setObjectName(u"home")
         sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.home.sizePolicy().hasHeightForWidth())
+        self.home.setSizePolicy(sizePolicy)
+        self.home.setMinimumSize(QSize(80, 80))
+        self.home.setMaximumSize(QSize(80, 80))
+        self.home.setLayoutDirection(Qt.LeftToRight)
+        self.home.setStyleSheet(u"background-color:  transparent;\n"
+"border:none;")
+        icon = QIcon()
+        icon.addFile(u"font/\u4e3b\u9875.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.home.setIcon(icon)
+        self.home.setIconSize(QSize(60, 60))
+
+        self.horizontalLayout.addWidget(self.home)
+
+        self.config = QPushButton(self.verticalLayoutWidget)
+        self.config.setObjectName(u"config")
+        sizePolicy.setHeightForWidth(self.config.sizePolicy().hasHeightForWidth())
+        self.config.setSizePolicy(sizePolicy)
+        self.config.setMinimumSize(QSize(80, 80))
+        self.config.setMaximumSize(QSize(80, 80))
+        self.config.setLayoutDirection(Qt.LeftToRight)
+        self.config.setStyleSheet(u"background-color:  transparent;\n"
+"border:none;")
+        icon1 = QIcon()
+        icon1.addFile(u"font/\u8bbe\u7f6e.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.config.setIcon(icon1)
+        self.config.setIconSize(QSize(80, 80))
+
+        self.horizontalLayout.addWidget(self.config)
+
+        self.exit = QPushButton(self.verticalLayoutWidget)
+        self.exit.setObjectName(u"exit")
         sizePolicy.setHeightForWidth(self.exit.sizePolicy().hasHeightForWidth())
         self.exit.setSizePolicy(sizePolicy)
         self.exit.setMinimumSize(QSize(80, 80))
@@ -56,15 +88,15 @@ class Ui_MainWindow(object):
         self.exit.setLayoutDirection(Qt.LeftToRight)
         self.exit.setStyleSheet(u"background-color:  transparent;\n"
 "border:none;")
-        icon = QIcon()
+        icon2 = QIcon()
         iconThemeName = u"face-laugh"
         if QIcon.hasThemeIcon(iconThemeName):
-            icon = QIcon.fromTheme(iconThemeName)
+            icon2 = QIcon.fromTheme(iconThemeName)
         else:
-            icon.addFile(u"font/\u9000\u51fa.png", QSize(), QIcon.Normal, QIcon.Off)
+            icon2.addFile(u"font/\u9000\u51fa.png", QSize(), QIcon.Normal, QIcon.Off)
 
-        self.exit.setIcon(icon)
-        self.exit.setIconSize(QSize(80, 80))
+        self.exit.setIcon(icon2)
+        self.exit.setIconSize(QSize(70, 70))
 
         self.horizontalLayout.addWidget(self.exit)
 
@@ -96,8 +128,6 @@ class Ui_MainWindow(object):
 "	border:2px solid gray;\n"
 "}")
         self.stream_file_list = QComboBox(self.groupBox_2)
-        self.stream_file_list.addItem("")
-        self.stream_file_list.addItem("")
         self.stream_file_list.setObjectName(u"stream_file_list")
         self.stream_file_list.setGeometry(QRect(140, 80, 651, 40))
         self.stream_file_list.setMinimumSize(QSize(0, 40))
@@ -144,7 +174,9 @@ class Ui_MainWindow(object):
 "  border:2px solid gray;\n"
 "  border-radius:15px;\n"
 "}")
-        self.stream_file_list.setEditable(False)
+        self.stream_file_list.setEditable(True)
+        self.stream_file_list.setMaxVisibleItems(5)
+        self.stream_file_list.setMaxCount(10)
         self.stream_file_list.setIconSize(QSize(30, 30))
         self.stream_file_list.setDuplicatesEnabled(False)
         self.stream_file_list.setFrame(True)
@@ -158,36 +190,15 @@ class Ui_MainWindow(object):
         self.open_stream_file.setLayoutDirection(Qt.LeftToRight)
         self.open_stream_file.setStyleSheet(u"background-color:  transparent;\n"
 "border:none;")
-        icon1 = QIcon()
+        icon3 = QIcon()
         iconThemeName = u"face-laugh"
         if QIcon.hasThemeIcon(iconThemeName):
-            icon1 = QIcon.fromTheme(iconThemeName)
+            icon3 = QIcon.fromTheme(iconThemeName)
         else:
-            icon1.addFile(u"font/\u641c\u7d22.png", QSize(), QIcon.Normal, QIcon.Off)
+            icon3.addFile(u"font/\u641c\u7d22.png", QSize(), QIcon.Normal, QIcon.Off)
 
-        self.open_stream_file.setIcon(icon1)
+        self.open_stream_file.setIcon(icon3)
         self.open_stream_file.setIconSize(QSize(60, 60))
-        self.stream_import = QPushButton(self.page_5)
-        self.stream_import.setObjectName(u"stream_import")
-        self.stream_import.setGeometry(QRect(940, 580, 60, 60))
-        sizePolicy2 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.stream_import.sizePolicy().hasHeightForWidth())
-        self.stream_import.setSizePolicy(sizePolicy2)
-        self.stream_import.setMinimumSize(QSize(60, 60))
-        self.stream_import.setMaximumSize(QSize(60, 60))
-        self.stream_import.setStyleSheet(u"background-color:  transparent;\n"
-"border:none;")
-        icon2 = QIcon()
-        iconThemeName = u"face-laugh"
-        if QIcon.hasThemeIcon(iconThemeName):
-            icon2 = QIcon.fromTheme(iconThemeName)
-        else:
-            icon2.addFile(u"font/\u8fdb\u5165.png", QSize(), QIcon.Normal, QIcon.Off)
-
-        self.stream_import.setIcon(icon2)
-        self.stream_import.setIconSize(QSize(60, 60))
         self.groupBox_4 = QGroupBox(self.page_5)
         self.groupBox_4.setObjectName(u"groupBox_4")
         self.groupBox_4.setGeometry(QRect(9, 219, 1001, 351))
@@ -259,7 +270,7 @@ class Ui_MainWindow(object):
 "")
         self.conf.setMaximum(100)
         self.conf.setSingleStep(1)
-        self.conf.setValue(50)
+        self.conf.setValue(70)
         self.conf.setOrientation(Qt.Horizontal)
         self.conf_value = QLabel(self.groupBox_4)
         self.conf_value.setObjectName(u"conf_value")
@@ -276,7 +287,7 @@ class Ui_MainWindow(object):
         self.open_weight_file.setLayoutDirection(Qt.LeftToRight)
         self.open_weight_file.setStyleSheet(u"background-color:  transparent;\n"
 "border:none;")
-        self.open_weight_file.setIcon(icon1)
+        self.open_weight_file.setIcon(icon3)
         self.open_weight_file.setIconSize(QSize(60, 60))
         self.weight_file_list = QComboBox(self.groupBox_4)
         self.weight_file_list.addItem("")
@@ -394,6 +405,43 @@ class Ui_MainWindow(object):
 "color: rgb(255, 255, 255);\n"
 "background-color: transparent;\n"
 "")
+        self.imgsz.setAlignment(Qt.AlignCenter)
+        self.horizontalLayoutWidget_2 = QWidget(self.page_5)
+        self.horizontalLayoutWidget_2.setObjectName(u"horizontalLayoutWidget_2")
+        self.horizontalLayoutWidget_2.setGeometry(QRect(9, 570, 1001, 94))
+        self.horizontalLayout_10 = QHBoxLayout(self.horizontalLayoutWidget_2)
+        self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
+        self.horizontalLayout_10.setContentsMargins(0, 0, 0, 0)
+        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_10.addItem(self.horizontalSpacer_5)
+
+        self.label_4 = QLabel(self.horizontalLayoutWidget_2)
+        self.label_4.setObjectName(u"label_4")
+        self.label_4.setStyleSheet(u"background-color:transparent;\n"
+"font: 700 14pt \"Microsoft YaHei UI\";\n"
+"color: rgb(151, 190, 21);")
+
+        self.horizontalLayout_10.addWidget(self.label_4)
+
+        self.stream_import = QPushButton(self.horizontalLayoutWidget_2)
+        self.stream_import.setObjectName(u"stream_import")
+        sizePolicy2 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.stream_import.sizePolicy().hasHeightForWidth())
+        self.stream_import.setSizePolicy(sizePolicy2)
+        self.stream_import.setMinimumSize(QSize(60, 60))
+        self.stream_import.setMaximumSize(QSize(60, 60))
+        self.stream_import.setStyleSheet(u"background-color:  transparent;\n"
+"border:none;")
+        icon4 = QIcon()
+        icon4.addFile(u"font/\u8fdb\u5165.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.stream_import.setIcon(icon4)
+        self.stream_import.setIconSize(QSize(60, 60))
+
+        self.horizontalLayout_10.addWidget(self.stream_import)
+
         self.stackedWidget.addWidget(self.page_5)
         self.page_6 = QWidget()
         self.page_6.setObjectName(u"page_6")
@@ -449,17 +497,6 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.horizontalLayout_3.setContentsMargins(-1, -1, 10, -1)
-        self.stream_reload = QPushButton(self.verticalLayoutWidget_3)
-        self.stream_reload.setObjectName(u"stream_reload")
-        self.stream_reload.setStyleSheet(u"background-color:  transparent;\n"
-"border:none;")
-        icon3 = QIcon()
-        icon3.addFile(u"font/\u5de6\u7bad\u5934.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.stream_reload.setIcon(icon3)
-        self.stream_reload.setIconSize(QSize(40, 40))
-
-        self.horizontalLayout_3.addWidget(self.stream_reload)
-
         self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.horizontalLayout_3.addItem(self.horizontalSpacer_4)
@@ -681,6 +718,7 @@ class Ui_MainWindow(object):
         self.warming_info.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 12pt \"Microsoft YaHei UI\";")
         self.warming_info.setAlignment(Qt.AlignCenter)
+        self.warming_info.setWordWrap(True)
 
         self.verticalLayout_5.addWidget(self.groupBox_5)
 
@@ -738,18 +776,16 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.label.setText("")
+        self.home.setText("")
+        self.config.setText("")
         self.exit.setText("")
         self.groupBox_2.setTitle(QCoreApplication.translate("MainWindow", u"\u89c6\u9891\u6d41\u5bfc\u5165", None))
-        self.stream_file_list.setItemText(0, QCoreApplication.translate("MainWindow", u"D:\\\u89c6\u9891\\\u8d85\u8d77\u914d\u91cd3\u67088\u65e5.mp4", None))
-        self.stream_file_list.setItemText(1, QCoreApplication.translate("MainWindow", u"0", None))
-
-        self.stream_import.setText("")
         self.groupBox_4.setTitle(QCoreApplication.translate("MainWindow", u"\u63a8\u7406\u53c2\u6570\u8bbe\u7f6e", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u6a21\u578b\u6743\u91cd\u6587\u4ef6", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"\u63a8\u7406\u8bbe\u5907", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"\u56fe\u7247\u5c3a\u5bf8", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"\u63a8\u7406\u7f6e\u4fe1\u5ea6", None))
-        self.conf_value.setText(QCoreApplication.translate("MainWindow", u"0.50", None))
+        self.conf_value.setText(QCoreApplication.translate("MainWindow", u"0.70", None))
         self.weight_file_list.setItemText(0, QCoreApplication.translate("MainWindow", u"../../utils/best_FP16.engine", None))
         self.weight_file_list.setItemText(1, QCoreApplication.translate("MainWindow", u"D:\\Download\\best.pt", None))
         self.weight_file_list.setItemText(2, QCoreApplication.translate("MainWindow", u"../../utils/best.pt", None))
@@ -757,9 +793,10 @@ class Ui_MainWindow(object):
         self.GPU.setText(QCoreApplication.translate("MainWindow", u"GPU", None))
         self.CPU.setText(QCoreApplication.translate("MainWindow", u"CPU", None))
         self.imgsz.setText(QCoreApplication.translate("MainWindow", u"640", None))
+        self.label_4.setText(QCoreApplication.translate("MainWindow", u"\u542f   \u52a8", None))
+        self.stream_import.setText("")
         self.groupBox_3.setTitle(QCoreApplication.translate("MainWindow", u"\u7ed3\u679c\u9884\u89c8", None))
         self.annotated_image.setText(QCoreApplication.translate("MainWindow", u"\u7b49\u5f85\u89c6\u9891\u6d41\u5bfc\u5165...", None))
-        self.stream_reload.setText("")
         self.box.setText(QCoreApplication.translate("MainWindow", u"\u68c0\u6d4b\u6846", None))
         self.Label.setText(QCoreApplication.translate("MainWindow", u"\u6807\u7b7e", None))
         self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"\u7ed3\u679c\u663e\u793a", None))

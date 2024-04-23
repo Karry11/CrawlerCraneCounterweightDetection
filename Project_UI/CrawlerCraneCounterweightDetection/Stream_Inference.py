@@ -90,6 +90,12 @@ class Stream_Inference(QThread):
 
     def run(self):
         cap = cv2.VideoCapture(self.stream_path)
+        #未捕获video
+        if not cap.isOpened():
+            self.num_weight,self.total_mass,self.total_mass_L,self.total_mass_R,self.warming_info = 0,0,0,0,"视频流中断，请检查网络相机连接情况"
+            self.result_info.emit(self.num_weight,self.total_mass,self.total_mass_L,self.total_mass_R,self.warming_info)
+            cap.release()
+            return
         fps = cap.get(cv2.CAP_PROP_FPS)
         delta_time=1000/fps
         while cap.isOpened() and not self.thread_stop:
@@ -137,4 +143,9 @@ class Stream_Inference(QThread):
                 continue
             else:
                 cv2.waitKey(int(delta_time-processing_time))
+        #中途中断
+        if not cap.isOpened():
+            self.warming_info = "视频流中断，请检查网络相机连接情况"
+            self.num_weight,self.total_mass,self.total_mass_L,self.total_mass_R = 0,0,0,0
+            self.result_info.emit(self.num_weight,self.total_mass,self.total_mass_L,self.total_mass_R,self.warming_info)
         cap.release()

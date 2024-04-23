@@ -52,6 +52,90 @@
        </spacer>
       </item>
       <item>
+       <widget class="QPushButton" name="home">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>80</width>
+          <height>80</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>80</width>
+          <height>80</height>
+         </size>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color:  transparent;
+border:none;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>font/主页.png</normaloff>font/主页.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>60</width>
+          <height>60</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="config">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>80</width>
+          <height>80</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>80</width>
+          <height>80</height>
+         </size>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color:  transparent;
+border:none;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>font/设置.png</normaloff>font/设置.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>80</width>
+          <height>80</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="exit">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -87,8 +171,8 @@ border:none;</string>
         </property>
         <property name="iconSize">
          <size>
-          <width>80</width>
-          <height>80</height>
+          <width>70</width>
+          <height>70</height>
          </size>
         </property>
        </widget>
@@ -214,7 +298,13 @@ QComboBox QAbstractItemView::item:selected{
 }</string>
            </property>
            <property name="editable">
-            <bool>false</bool>
+            <bool>true</bool>
+           </property>
+           <property name="maxVisibleItems">
+            <number>5</number>
+           </property>
+           <property name="maxCount">
+            <number>10</number>
            </property>
            <property name="iconSize">
             <size>
@@ -228,16 +318,6 @@ QComboBox QAbstractItemView::item:selected{
            <property name="frame">
             <bool>true</bool>
            </property>
-           <item>
-            <property name="text">
-             <string>D:\视频\超起配重3月8日.mp4</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>0</string>
-            </property>
-           </item>
           </widget>
           <widget class="QPushButton" name="open_stream_file">
            <property name="geometry">
@@ -284,51 +364,6 @@ border:none;</string>
             </size>
            </property>
           </widget>
-         </widget>
-         <widget class="QPushButton" name="stream_import">
-          <property name="geometry">
-           <rect>
-            <x>940</x>
-            <y>580</y>
-            <width>60</width>
-            <height>60</height>
-           </rect>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>60</width>
-            <height>60</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>60</width>
-            <height>60</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color:  transparent;
-border:none;</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="icon">
-           <iconset theme="face-laugh">
-            <normaloff>font/进入.png</normaloff>font/进入.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>60</width>
-            <height>60</height>
-           </size>
-          </property>
          </widget>
          <widget class="QGroupBox" name="groupBox_4">
           <property name="geometry">
@@ -473,7 +508,7 @@ QSlider::add-page:horizontal
             <number>1</number>
            </property>
            <property name="value">
-            <number>50</number>
+            <number>70</number>
            </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
@@ -493,7 +528,7 @@ QSlider::add-page:horizontal
 color: rgb(151, 151, 151);</string>
            </property>
            <property name="text">
-            <string>0.50</string>
+            <string>0.70</string>
            </property>
           </widget>
           <widget class="QPushButton" name="open_weight_file">
@@ -738,7 +773,86 @@ background-color: transparent;
            <property name="text">
             <string>640</string>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
           </widget>
+         </widget>
+         <widget class="QWidget" name="horizontalLayoutWidget_2">
+          <property name="geometry">
+           <rect>
+            <x>9</x>
+            <y>570</y>
+            <width>1001</width>
+            <height>94</height>
+           </rect>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_10">
+           <item>
+            <spacer name="horizontalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_4">
+             <property name="styleSheet">
+              <string notr="true">background-color:transparent;
+font: 700 14pt &quot;Microsoft YaHei UI&quot;;
+color: rgb(151, 190, 21);</string>
+             </property>
+             <property name="text">
+              <string>启   动</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="stream_import">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>60</width>
+               <height>60</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>60</width>
+               <height>60</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:  transparent;
+border:none;</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>font/进入.png</normaloff>font/进入.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>60</width>
+               <height>60</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </widget>
         <widget class="QWidget" name="page_6">
@@ -861,27 +975,6 @@ font: 700 14pt &quot;Microsoft YaHei UI&quot;;</string>
               <property name="rightMargin">
                <number>10</number>
               </property>
-              <item>
-               <widget class="QPushButton" name="stream_reload">
-                <property name="styleSheet">
-                 <string notr="true">background-color:  transparent;
-border:none;</string>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="icon">
-                 <iconset>
-                  <normaloff>font/左箭头.png</normaloff>font/左箭头.png</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>40</width>
-                  <height>40</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
               <item>
                <spacer name="horizontalSpacer_4">
                 <property name="orientation">
@@ -1291,6 +1384,9 @@ font: 12pt &quot;Microsoft YaHei UI&quot;;</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignCenter</set>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>true</bool>
                  </property>
                 </widget>
                </widget>

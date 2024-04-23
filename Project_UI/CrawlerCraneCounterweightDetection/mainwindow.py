@@ -16,7 +16,10 @@ class MainWindow(QWidget):
         self.ui.setupUi(self)
         self.ui.stackedWidget.setCurrentIndex(0)
         self.ui.stream_import.clicked.connect(self.stream_import)
-        self.ui.stream_reload.clicked.connect(self.stream_reload)
+        self.PageSwitchButtonGroup = QButtonGroup()
+        self.PageSwitchButtonGroup.addButton(self.ui.home)
+        self.PageSwitchButtonGroup.addButton(self.ui.config)
+        self.PageSwitchButtonGroup.buttonClicked.connect(self.page_switch)
         self.stream_path=""
         self.ui.open_stream_file.clicked.connect(lambda:self.open_file(0))
         self.ui.open_weight_file.clicked.connect(lambda:self.open_file(1))
@@ -24,7 +27,6 @@ class MainWindow(QWidget):
         self.deviceButtonGroup.addButton(self.ui.GPU)
         self.deviceButtonGroup.addButton(self.ui.CPU)
         self.deviceButtonGroup.buttonClicked.connect(self.device_select)
-        self.ui.conf_value.setText("0.50")
         self.ui.box.clicked.connect(self.show_box)
         self.ui.Label.clicked.connect(self.show_label)
         self.stream_inference_thread=""
@@ -36,6 +38,39 @@ class MainWindow(QWidget):
         self.weight_sr = "../../utils/ESPCN_x2.pb"
         self.weight_character = "../../CounterweightCharacterRecognition/detect/train/weights/best.engine"
         self.ui.conf.valueChanged.connect(self.sliderChanged)
+
+        # 从文件中加载历史数据
+        self.load_stream_path()
+        self.ui.stream_file_list.currentIndexChanged.connect(self.save_stream_path)
+
+        self.stream_import()
+
+    def save_stream_path(self):
+        # 断开 currentIndexChanged 信号的连接
+        self.ui.stream_file_list.currentIndexChanged.disconnect(self.save_stream_path)
+        # 将当前选择的文本添加到列表的首位
+        current_text = self.ui.stream_file_list.currentText()
+        current_index = self.ui.stream_file_list.currentIndex()
+        self.ui.stream_file_list.removeItem(current_index)
+        self.ui.stream_file_list.insertItem(0, current_text)
+        self.ui.stream_file_list.setCurrentIndex(0)
+        # 保存当前 ComboBox 中的所有文本到文件
+        with open("config/stream_path.txt", "w", encoding="utf-8") as file:
+            for i in range(self.ui.stream_file_list.count()):
+                file.write(self.ui.stream_file_list.itemText(i) + "\n")
+                print('1')
+        # 重新连接 currentIndexChanged 信号
+        self.ui.stream_file_list.currentIndexChanged.connect(self.save_stream_path)
+
+    def load_stream_path(self):
+        # 从文件中加载历史数据到 ComboBox
+        try:
+            with open("config\stream_path.txt", "r", encoding="utf-8") as file:
+                lines = file.readlines()
+                for line in lines:
+                    self.ui.stream_file_list.addItem(line.strip())
+        except FileNotFoundError:
+            pass
 
     def show_box(self):
         self.stream_inference_thread.box = (lambda x: True if x.isChecked() else False)(self.ui.box)
@@ -50,8 +85,8 @@ class MainWindow(QWidget):
     def is_unique(self,current_item, combo_box):
         for index in range(combo_box.count()):
             if combo_box.itemText(index) == current_item:
-                return False
-        return True
+                return False,index
+        return True , 0
 
     def open_file(self,type):
         file_dialog = QFileDialog(self)
@@ -63,9 +98,14 @@ class MainWindow(QWidget):
             if file_dialog.exec():
                 selected_files = file_dialog.selectedFiles()
                 if len(selected_files) == 1:
-                    if self.is_unique(selected_files[0], self.ui.stream_file_list):
+                    flag,index = self.is_unique(selected_files[0], self.ui.stream_file_list)
+                    if flag:
+                        if self.ui.stream_file_list.count()>=self.ui.stream_file_list.maxCount():
+                            self.ui.stream_file_list.removeItem(self.ui.stream_file_list.maxCount()-1)
                         self.ui.stream_file_list.addItem(selected_files[0])
-                    self.ui.stream_file_list.setCurrentText(selected_files[0])
+                        self.ui.stream_file_list.setCurrentIndex(self.ui.stream_file_list.count()-1)
+                    else:
+                        self.ui.stream_file_list.setCurrentIndex(index)
                 else:
                     return
         elif type ==1:
@@ -81,6 +121,13 @@ class MainWindow(QWidget):
 
     def stream_import(self):
         self.stream_path = str(self.ui.stream_file_list.currentText())
+        flag,index = self.is_unique(self.stream_path,self.ui.stream_file_list)
+        if flag:
+            print('2')
+            if self.ui.stream_file_list.count()>=self.ui.stream_file_list.maxCount():
+                self.ui.stream_file_list.removeItem(self.ui.stream_file_list.maxCount()-1)
+            self.ui.stream_file_list.addItem(self.ui.stream_file_list.currentText())
+            self.ui.stream_file_list.setCurrentIndex(self.ui.stream_file_list.count()-1)
         self.stream_path = int(self.stream_path) if str.isdigit(self.stream_path) else self.stream_path
         self.weight_path = str(self.ui.weight_file_list.currentText())
         self.imgsz = int(self.ui.imgsz.text())
@@ -91,6 +138,16 @@ class MainWindow(QWidget):
         self.stream_inference_thread.result_info.connect(self.display_results)
         self.stream_inference_thread.start()
         self.ui.stackedWidget.setCurrentIndex(1)
+
+    def page_switch(self,botton):
+        if botton==self.ui.home:
+            if self.ui.stackedWidget.currentIndex()==1:
+                return
+            else:
+                self.stream_import()
+        else:
+            self.stream_inference_thread.stop()
+            self.ui.stackedWidget.setCurrentIndex(0)
 
     def stream_reload(self):
         self.stream_inference_thread.stop()
