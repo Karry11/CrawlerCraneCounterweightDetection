@@ -7,6 +7,7 @@ import time
 from ultralytics import YOLO
 import numpy as np
 from collections import deque, Counter
+from knn import knn_classifier
 class Stream_Inference(QThread):
     processed_image = Signal(QImage)
     result_info = Signal(int,float,float,float,str)
@@ -113,6 +114,16 @@ class Stream_Inference(QThread):
                 counter = Counter(self.num_weight_queue)
                 # 获取出现次数最多的元素（众数）
                 self.num_weight = counter.most_common(1)[0][0]
+                # 计算左右两边配重块数和重量
+                boxes_number = self.result[0].boxes.cpu().numpy().data
+                int_boxes_number = np.floor(boxes_number).astype(int)
+                self.weight_left_number, self.weight_right_number = knn_classifier(int_boxes_number)
+                self.total_mass_L = self.weight_left_number * float(eval(self.model_character_dic[classify_number][0:-1]))
+                self.total_mass_R = self.weight_right_number * float(
+                    eval(self.model_character_dic[classify_number][0:-1]))
+                # 计算完之后对左右数量置为0，避免带入缓存误差
+                self.weight_left_number, self.weight_right_number = 0, 0
+
                 self.processed_image.emit(qimage)
                 self.total_mass = self.num_weight * float(eval(self.model_character_dic[classify_number][0:-1]))
                 self.result_info.emit(self.num_weight,self.total_mass,self.total_mass_L,self.total_mass_R,self.warming_info)
