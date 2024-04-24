@@ -68,7 +68,7 @@ class MainWindow(QWidget):
         self.ui.weight_file_list_2.currentIndexChanged.connect(lambda:self.button_mode_switch(self.ui.weight_file_list_2.currentText(),self.deviceButtonGroup_2))
         self.button_mode_switch(self.ui.weight_file_list.currentText(),self.deviceButtonGroup)
         self.button_mode_switch(self.ui.weight_file_list_2.currentText(),self.deviceButtonGroup_2)
-        # self.stream_import()
+        self.stream_import()
 
     def save_stream_path(self):
         # 断开 currentIndexChanged 信号的连接
@@ -173,12 +173,12 @@ class MainWindow(QWidget):
         #配重检测推理参数
         self.weight_path = str(self.ui.weight_file_list.currentText())
         self.imgsz = int(self.ui.imgsz.text())
-        self.device = "cuda:0" if self.ui.GPU.isChecked() else "CPU"
+        self.device = "CPU" if self.ui.CPU.isChecked() else "cuda:0"
         self.conf = self.ui.conf.value()*0.01
         #字符检测推理参数
         self.weight_character = str(self.ui.weight_file_list_2.currentText())
         self.imgsz_2= int(self.ui.imgsz_2.text())
-        self.device_2 = "cuda:0" if self.ui.GPU_2.isChecked() else "CPU"
+        self.device_2 = "CPU" if self.ui.CPU_2.isChecked() else "cuda:0"
         self.conf_2 = self.ui.conf_2.value()*0.01
         #创建线程
         self.stream_inference_thread = Stream_Inference(self.stream_path,self.weight_path,self.imgsz,self.conf,self.device,self.weight_sr, self.weight_character,self.imgsz_2,self.conf_2,self.device_2)

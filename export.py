@@ -4,7 +4,7 @@ from ultralytics import YOLO
 model = YOLO('CounterweightCharacterRecognition\\detect\\train\\weights\\best.pt')
 
 # Export the model to TensorRT format
-model.export(format='engine',half=True)  # creates 'yolov8n.engine'
+model.export(format='engine',half=False)  # creates 'yolov8n.engine'
 
 # # Load the exported TensorRT model
 # tensorrt_model = YOLO('utils/best.engine',task='segment')

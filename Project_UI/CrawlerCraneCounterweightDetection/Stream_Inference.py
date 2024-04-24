@@ -100,42 +100,44 @@ class Stream_Inference(QThread):
             return
         fps = cap.get(cv2.CAP_PROP_FPS)
         delta_time=1000/fps
+        time1= time.time()
+        count=0
         while cap.isOpened() and not self.thread_stop:
             start_time = time.time()
             ret, frame = cap.read()
             if ret:
-                self.result = self.model(frame,imgsz=self.imgsz,conf=self.conf,device=self.device,vid_stride=3)
-                # 通过预测狂和原始图像数据得到切片图像，通过对切片图像完成超分辨率增强后输出结果 [(图像切片1，置信度1),(图像切片2， 置信度2).....]
-                slice_result = self._get_image_slice()
-                classify_number,character_pos = self._slice_classify(slice_result)
-                annotated_image = self.result[0].plot(conf=True,line_width=2,font_size=None,font="Arial.ttf",pil=False,img=None,im_gpu=None,kpt_radius=5,
-                            kpt_line=True,labels=self.label,boxes=self.box,masks=False,probs=True,show=False,save=False,filename=None)
-                for box in character_pos:
-                    cv2.rectangle(annotated_image, (box[0], box[1]), (box[2], box[3]),  color=(0,0,255), thickness=2)
-                rgb_image = cv2.cvtColor(annotated_image, cv2.COLOR_BGR2RGB)
-                h, w, ch = rgb_image.shape
-                bytes_per_line = ch * w
-                qimage = QImage(rgb_image.data, w, h, bytes_per_line, QImage.Format_RGB888)
-                # 将检测结果添加到队列中
-                self.num_weight_queue.append(len(self.result[0].boxes))
-                # 获取队列中元素的统计信息
-                counter = Counter(self.num_weight_queue)
-                # 获取出现次数最多的元素（众数）
-                self.num_weight = counter.most_common(1)[0][0]
-                # 计算左右两边配重块数和重量
-                boxes_number = self.result[0].boxes.cpu().numpy().data
-                int_boxes_number = np.floor(boxes_number).astype(int)
-                self.weight_left_number, self.weight_right_number = knn_classifier(int_boxes_number)
-                self.total_mass_L = self.weight_left_number * float(eval(self.model_character_dic[classify_number][0:-1]))
-                self.total_mass_R = self.weight_right_number * float(
-                    eval(self.model_character_dic[classify_number][0:-1]))
-                # 计算完之后对左右数量置为0，避免带入缓存误差
-                self.weight_left_number, self.weight_right_number = 0, 0
+                if count==0:
+                    self.result = self.model(frame,imgsz=self.imgsz,conf=self.conf,device=self.device,vid_stride = 3)
+                    # 通过预测狂和原始图像数据得到切片图像，通过对切片图像完成超分辨率增强后输出结果 [(图像切片1，置信度1),(图像切片2， 置信度2).....]
+                    slice_result = self._get_image_slice()
+                    classify_number,character_pos = self._slice_classify(slice_result)
+                    annotated_image = self.result[0].plot(conf=True,line_width=2,font_size=None,font="Arial.ttf",pil=False,img=None,im_gpu=None,kpt_radius=5,
+                                kpt_line=True,labels=self.label,boxes=self.box,masks=False,probs=True,show=False,save=False,filename=None)
+                    for box in character_pos:
+                        cv2.rectangle(annotated_image, (box[0], box[1]), (box[2], box[3]),  color=(0,0,255), thickness=2)
+                    rgb_image = cv2.cvtColor(annotated_image, cv2.COLOR_BGR2RGB)
+                    h, w, ch = rgb_image.shape
+                    bytes_per_line = ch * w
+                    qimage = QImage(rgb_image.data, w, h, bytes_per_line, QImage.Format_RGB888)
+                    # 将检测结果添加到队列中
+                    self.num_weight_queue.append(len(self.result[0].boxes))
+                    # 获取队列中元素的统计信息
+                    counter = Counter(self.num_weight_queue)
+                    # 获取出现次数最多的元素（众数）
+                    self.num_weight = counter.most_common(1)[0][0]
+                    # 计算左右两边配重块数和重量
+                    boxes_number = self.result[0].boxes.cpu().numpy().data
+                    int_boxes_number = np.floor(boxes_number).astype(int)
+                    self.weight_left_number, self.weight_right_number = knn_classifier(int_boxes_number)
+                    self.total_mass_L = self.weight_left_number * float(eval(self.model_character_dic[classify_number][0:-1]))
+                    self.total_mass_R = self.weight_right_number * float(eval(self.model_character_dic[classify_number][0:-1]))
+                    # 计算完之后对左右数量置为0，避免带入缓存误差
+                    self.weight_left_number, self.weight_right_number = 0, 0
 
-                self.processed_image.emit(qimage)
-                self.total_mass = self.num_weight * float(eval(self.model_character_dic[classify_number][0:-1]))
-                self.result_info.emit(self.num_weight,self.total_mass,self.total_mass_L,self.total_mass_R,self.warming_info)
-
+                    self.processed_image.emit(qimage)
+                    self.total_mass = self.num_weight * float(eval(self.model_character_dic[classify_number][0:-1]))
+                    self.result_info.emit(self.num_weight,self.total_mass,self.total_mass_L,self.total_mass_R,self.warming_info)
+                count = (count+1)%3
             else:
                 break
             end_time = time.time()
@@ -150,4 +152,5 @@ class Stream_Inference(QThread):
             self.warming_info = "视频流中断，请检查网络相机连接情况"
             self.num_weight,self.total_mass,self.total_mass_L,self.total_mass_R = 0,0,0,0
             self.result_info.emit(self.num_weight,self.total_mass,self.total_mass_L,self.total_mass_R,self.warming_info)
+        print((time.time()-time1)*1000)
         cap.release()
