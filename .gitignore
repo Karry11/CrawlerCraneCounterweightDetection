@@ -22,3 +22,4 @@ utils/best.onnx
 utils/best_FP16.onnx
 utils/best_FP16.pt
 Project_UI/CrawlerCraneCounterweightDetection/CrawlerCraneCounterweightDetection.pyproject.user
+Project_UI/CrawlerCraneCounterweightDetection/Stream_Inference_2.py

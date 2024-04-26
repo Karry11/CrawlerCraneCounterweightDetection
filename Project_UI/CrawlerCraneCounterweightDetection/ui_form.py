@@ -1100,129 +1100,104 @@ class Ui_MainWindow(object):
 "}")
         self.verticalLayoutWidget_2 = QWidget(self.groupBox)
         self.verticalLayoutWidget_2.setObjectName(u"verticalLayoutWidget_2")
-        self.verticalLayoutWidget_2.setGeometry(QRect(10, 21, 221, 630))
+        self.verticalLayoutWidget_2.setGeometry(QRect(10, 20, 211, 621))
         self.verticalLayout_4 = QVBoxLayout(self.verticalLayoutWidget_2)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.verticalLayout_4.setContentsMargins(5, 0, 0, 0)
-        self.horizontalLayout_5 = QHBoxLayout()
-        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
-        self.horizontalLayout_5.setContentsMargins(10, -1, 10, -1)
-        self.label_3 = QLabel(self.verticalLayoutWidget_2)
-        self.label_3.setObjectName(u"label_3")
-        self.label_3.setStyleSheet(u"background-color:transparent;\n"
-"font: 12pt \"Microsoft YaHei UI\";\n"
-"color: rgb(151, 190, 21);")
-
-        self.horizontalLayout_5.addWidget(self.label_3)
-
-        self.num_weight = QLabel(self.verticalLayoutWidget_2)
+        self.verticalLayout_11 = QVBoxLayout()
+        self.verticalLayout_11.setObjectName(u"verticalLayout_11")
+        self.verticalLayout_11.setContentsMargins(10, -1, 10, 10)
+        self.groupBox_10 = QGroupBox(self.verticalLayoutWidget_2)
+        self.groupBox_10.setObjectName(u"groupBox_10")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.groupBox_10.sizePolicy().hasHeightForWidth())
+        self.groupBox_10.setSizePolicy(sizePolicy3)
+        self.groupBox_10.setMinimumSize(QSize(0, 60))
+        self.groupBox_10.setStyleSheet(u"color: rgb(151, 190, 21);\n"
+"font: 14pt \"Microsoft YaHei UI\";")
+        self.num_weight = QLabel(self.groupBox_10)
         self.num_weight.setObjectName(u"num_weight")
-        sizePolicy2.setHeightForWidth(self.num_weight.sizePolicy().hasHeightForWidth())
-        self.num_weight.setSizePolicy(sizePolicy2)
-        self.num_weight.setMinimumSize(QSize(50, 50))
-        self.num_weight.setMaximumSize(QSize(150, 50))
-        self.num_weight.setStyleSheet(u"border:2px solid gray;\n"
-"border-radius:15px;\n"
-"background-color:transparent;\n"
-"font: 12pt \"Microsoft YaHei UI\";\n"
-"color: white;\n"
-"")
+        self.num_weight.setGeometry(QRect(10, 20, 171, 31))
+        self.num_weight.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 16pt \"Microsoft YaHei UI\";")
         self.num_weight.setAlignment(Qt.AlignCenter)
+        self.num_weight.setWordWrap(True)
 
-        self.horizontalLayout_5.addWidget(self.num_weight)
+        self.verticalLayout_11.addWidget(self.groupBox_10)
 
 
-        self.verticalLayout_4.addLayout(self.horizontalLayout_5)
+        self.verticalLayout_4.addLayout(self.verticalLayout_11)
 
-        self.horizontalLayout_6 = QHBoxLayout()
-        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
-        self.horizontalLayout_6.setContentsMargins(10, -1, 10, -1)
-        self.label_5 = QLabel(self.verticalLayoutWidget_2)
-        self.label_5.setObjectName(u"label_5")
-        self.label_5.setStyleSheet(u"background-color:transparent;\n"
-"font: 12pt \"Microsoft YaHei UI\";\n"
-"color: rgb(151, 190, 21);")
-
-        self.horizontalLayout_6.addWidget(self.label_5)
-
-        self.total_mass = QLabel(self.verticalLayoutWidget_2)
+        self.verticalLayout_10 = QVBoxLayout()
+        self.verticalLayout_10.setObjectName(u"verticalLayout_10")
+        self.verticalLayout_10.setContentsMargins(10, -1, 10, 10)
+        self.groupBox_9 = QGroupBox(self.verticalLayoutWidget_2)
+        self.groupBox_9.setObjectName(u"groupBox_9")
+        sizePolicy3.setHeightForWidth(self.groupBox_9.sizePolicy().hasHeightForWidth())
+        self.groupBox_9.setSizePolicy(sizePolicy3)
+        self.groupBox_9.setMinimumSize(QSize(0, 60))
+        self.groupBox_9.setStyleSheet(u"color: rgb(151, 190, 21);\n"
+"font: 14pt \"Microsoft YaHei UI\";")
+        self.total_mass = QLabel(self.groupBox_9)
         self.total_mass.setObjectName(u"total_mass")
-        sizePolicy2.setHeightForWidth(self.total_mass.sizePolicy().hasHeightForWidth())
-        self.total_mass.setSizePolicy(sizePolicy2)
-        self.total_mass.setMinimumSize(QSize(50, 50))
-        self.total_mass.setMaximumSize(QSize(150, 50))
-        self.total_mass.setStyleSheet(u"border:2px solid gray;\n"
-"border-radius:15px;\n"
-"background-color:transparent;\n"
-"font: 12pt \"Microsoft YaHei UI\";\n"
-"color: white;\n"
-"")
+        self.total_mass.setGeometry(QRect(10, 20, 171, 31))
+        self.total_mass.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 16pt \"Microsoft YaHei UI\";")
         self.total_mass.setAlignment(Qt.AlignCenter)
+        self.total_mass.setWordWrap(True)
 
-        self.horizontalLayout_6.addWidget(self.total_mass)
+        self.verticalLayout_10.addWidget(self.groupBox_9)
 
 
-        self.verticalLayout_4.addLayout(self.horizontalLayout_6)
+        self.verticalLayout_4.addLayout(self.verticalLayout_10)
 
-        self.horizontalLayout_7 = QHBoxLayout()
-        self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
-        self.horizontalLayout_7.setContentsMargins(10, -1, 10, -1)
-        self.label_10 = QLabel(self.verticalLayoutWidget_2)
-        self.label_10.setObjectName(u"label_10")
-        self.label_10.setStyleSheet(u"background-color:transparent;\n"
-"font: 12pt \"Microsoft YaHei UI\";\n"
-"color: rgb(151, 190, 21);")
-
-        self.horizontalLayout_7.addWidget(self.label_10)
-
-        self.total_mass_L = QLabel(self.verticalLayoutWidget_2)
+        self.verticalLayout_9 = QVBoxLayout()
+        self.verticalLayout_9.setObjectName(u"verticalLayout_9")
+        self.verticalLayout_9.setContentsMargins(10, -1, 10, 10)
+        self.groupBox_8 = QGroupBox(self.verticalLayoutWidget_2)
+        self.groupBox_8.setObjectName(u"groupBox_8")
+        sizePolicy3.setHeightForWidth(self.groupBox_8.sizePolicy().hasHeightForWidth())
+        self.groupBox_8.setSizePolicy(sizePolicy3)
+        self.groupBox_8.setMinimumSize(QSize(0, 60))
+        self.groupBox_8.setStyleSheet(u"color: rgb(151, 190, 21);\n"
+"font: 14pt \"Microsoft YaHei UI\";")
+        self.total_mass_L = QLabel(self.groupBox_8)
         self.total_mass_L.setObjectName(u"total_mass_L")
-        sizePolicy2.setHeightForWidth(self.total_mass_L.sizePolicy().hasHeightForWidth())
-        self.total_mass_L.setSizePolicy(sizePolicy2)
-        self.total_mass_L.setMinimumSize(QSize(50, 50))
-        self.total_mass_L.setMaximumSize(QSize(150, 50))
-        self.total_mass_L.setStyleSheet(u"border:2px solid gray;\n"
-"border-radius:15px;\n"
-"background-color:transparent;\n"
-"font: 12pt \"Microsoft YaHei UI\";\n"
-"color: white;\n"
-"")
+        self.total_mass_L.setGeometry(QRect(10, 20, 171, 31))
+        self.total_mass_L.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 16pt \"Microsoft YaHei UI\";")
         self.total_mass_L.setAlignment(Qt.AlignCenter)
+        self.total_mass_L.setWordWrap(True)
 
-        self.horizontalLayout_7.addWidget(self.total_mass_L)
+        self.verticalLayout_9.addWidget(self.groupBox_8)
 
 
-        self.verticalLayout_4.addLayout(self.horizontalLayout_7)
+        self.verticalLayout_4.addLayout(self.verticalLayout_9)
 
-        self.horizontalLayout_8 = QHBoxLayout()
-        self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
-        self.horizontalLayout_8.setContentsMargins(10, -1, 10, -1)
-        self.label_12 = QLabel(self.verticalLayoutWidget_2)
-        self.label_12.setObjectName(u"label_12")
-        self.label_12.setStyleSheet(u"background-color:transparent;\n"
-"font: 12pt \"Microsoft YaHei UI\";\n"
-"color: rgb(151, 190, 21);")
-
-        self.horizontalLayout_8.addWidget(self.label_12)
-
-        self.total_mass_R = QLabel(self.verticalLayoutWidget_2)
+        self.verticalLayout_6 = QVBoxLayout()
+        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
+        self.verticalLayout_6.setContentsMargins(10, -1, 10, 10)
+        self.groupBox_7 = QGroupBox(self.verticalLayoutWidget_2)
+        self.groupBox_7.setObjectName(u"groupBox_7")
+        sizePolicy3.setHeightForWidth(self.groupBox_7.sizePolicy().hasHeightForWidth())
+        self.groupBox_7.setSizePolicy(sizePolicy3)
+        self.groupBox_7.setMinimumSize(QSize(0, 60))
+        self.groupBox_7.setStyleSheet(u"color: rgb(151, 190, 21);\n"
+"font: 14pt \"Microsoft YaHei UI\";")
+        self.total_mass_R = QLabel(self.groupBox_7)
         self.total_mass_R.setObjectName(u"total_mass_R")
-        sizePolicy2.setHeightForWidth(self.total_mass_R.sizePolicy().hasHeightForWidth())
-        self.total_mass_R.setSizePolicy(sizePolicy2)
-        self.total_mass_R.setMinimumSize(QSize(50, 50))
-        self.total_mass_R.setMaximumSize(QSize(150, 50))
-        self.total_mass_R.setStyleSheet(u"border:2px solid gray;\n"
-"border-radius:15px;\n"
-"background-color:transparent;\n"
-"font: 12pt \"Microsoft YaHei UI\";\n"
-"color: white;\n"
-"")
+        self.total_mass_R.setGeometry(QRect(10, 20, 171, 31))
+        self.total_mass_R.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 16pt \"Microsoft YaHei UI\";")
         self.total_mass_R.setAlignment(Qt.AlignCenter)
+        self.total_mass_R.setWordWrap(True)
 
-        self.horizontalLayout_8.addWidget(self.total_mass_R)
+        self.verticalLayout_6.addWidget(self.groupBox_7)
 
 
-        self.verticalLayout_4.addLayout(self.horizontalLayout_8)
+        self.verticalLayout_4.addLayout(self.verticalLayout_6)
 
         self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
@@ -1230,22 +1205,19 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_5 = QVBoxLayout()
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
-        self.verticalLayout_5.setContentsMargins(10, -1, 10, -1)
+        self.verticalLayout_5.setContentsMargins(10, -1, 10, 10)
         self.groupBox_5 = QGroupBox(self.verticalLayoutWidget_2)
         self.groupBox_5.setObjectName(u"groupBox_5")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(0)
         sizePolicy3.setHeightForWidth(self.groupBox_5.sizePolicy().hasHeightForWidth())
         self.groupBox_5.setSizePolicy(sizePolicy3)
-        self.groupBox_5.setMinimumSize(QSize(0, 300))
+        self.groupBox_5.setMinimumSize(QSize(0, 200))
         self.groupBox_5.setStyleSheet(u"color: rgb(151, 190, 21);\n"
-"font: 12pt \"Microsoft YaHei UI\";")
+"font: 16pt \"Microsoft YaHei UI\";")
         self.warming_info = QLabel(self.groupBox_5)
         self.warming_info.setObjectName(u"warming_info")
-        self.warming_info.setGeometry(QRect(10, 20, 181, 271))
+        self.warming_info.setGeometry(QRect(10, 40, 171, 151))
         self.warming_info.setStyleSheet(u"color: rgb(255, 255, 255);\n"
-"font: 12pt \"Microsoft YaHei UI\";")
+"font: 16pt \"Microsoft YaHei UI\";")
         self.warming_info.setAlignment(Qt.AlignCenter)
         self.warming_info.setWordWrap(True)
 
@@ -1340,13 +1312,13 @@ class Ui_MainWindow(object):
         self.box.setText(QCoreApplication.translate("MainWindow", u"\u68c0\u6d4b\u6846", None))
         self.Label.setText(QCoreApplication.translate("MainWindow", u"\u6807\u7b7e", None))
         self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"\u7ed3\u679c\u663e\u793a", None))
-        self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u914d\u91cd\u603b\u6570\u91cf", None))
+        self.groupBox_10.setTitle(QCoreApplication.translate("MainWindow", u"\u914d\u91cd\u603b\u6570\u91cf", None))
         self.num_weight.setText("")
-        self.label_5.setText(QCoreApplication.translate("MainWindow", u"\u914d\u91cd\u603b\u91cd\u91cf(t)", None))
+        self.groupBox_9.setTitle(QCoreApplication.translate("MainWindow", u"\u914d\u91cd\u603b\u91cd\u91cf(t)", None))
         self.total_mass.setText("")
-        self.label_10.setText(QCoreApplication.translate("MainWindow", u"\u5de6\u4fa7\u603b\u91cd\u91cf(t)", None))
+        self.groupBox_8.setTitle(QCoreApplication.translate("MainWindow", u"\u5de6\u4fa7\u603b\u91cd\u91cf(t)", None))
         self.total_mass_L.setText("")
-        self.label_12.setText(QCoreApplication.translate("MainWindow", u"\u53f3\u4fa7\u603b\u91cd\u91cf(t)", None))
+        self.groupBox_7.setTitle(QCoreApplication.translate("MainWindow", u"\u53f3\u4fa7\u603b\u91cd\u91cf(t)", None))
         self.total_mass_R.setText("")
         self.groupBox_5.setTitle(QCoreApplication.translate("MainWindow", u"\u9884\u8b66\u4fe1\u606f", None))
         self.warming_info.setText("")
