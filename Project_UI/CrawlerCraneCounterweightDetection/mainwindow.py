@@ -2,6 +2,9 @@
 # Important:
 # You need to run the following command to generate the ui_form.py file
 #     pyside6-uic form.ui -o ui_form.py
+
+# Sudo apt-get install libxkbcommon-x11-0
+# sudo apt install libegl1-mesa
 import sys
 from PySide6.QtWidgets import QApplication, QWidget,QFileDialog,QButtonGroup
 from PySide6.QtCore import QDir,Qt
@@ -50,7 +53,7 @@ class MainWindow(QWidget):
 
         #默认字符检测推理参数
         self.weight_sr = "../../utils/ESPCN_x2.pb"
-        self.weight_character = "../../CounterweightCharacterRecognition/detect/train/weights/best.engine"
+        self.weight_character = "../../CounterweightCharacterRecognition/detect/train/weights/best.pt"
         self.imgsz_2=640
         self.conf_2=0.5
         self.device_2="cuda:0"
@@ -171,12 +174,12 @@ class MainWindow(QWidget):
         self.stream_path = int(self.stream_path) if str.isdigit(self.stream_path) else self.stream_path #获取本地相机代号
 
         #配重检测推理参数
-        self.weight_path = str(self.ui.weight_file_list.currentText())
+        # self.weight_path = str(self.ui.weight_file_list.currentText())
         self.imgsz = int(self.ui.imgsz.text())
         self.device = "CPU" if self.ui.CPU.isChecked() else "cuda:0"
         self.conf = self.ui.conf.value()*0.01
         #字符检测推理参数
-        self.weight_character = str(self.ui.weight_file_list_2.currentText())
+        # self.weight_character = str(self.ui.weight_file_list_2.currentText())
         self.imgsz_2= int(self.ui.imgsz_2.text())
         self.device_2 = "CPU" if self.ui.CPU_2.isChecked() else "cuda:0"
         self.conf_2 = self.ui.conf_2.value()*0.01
